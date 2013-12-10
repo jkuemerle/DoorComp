@@ -1,0 +1,24 @@
+﻿@inherits ViewPage<DoorsResponse>
+
+@{
+    ViewBag.Title = "Door Competition - Doors";
+}
+
+These are the decorated doors for @Model.EventCode.
+<table>
+    <tr>
+        <th>Owner</th>
+        <th>Door</th>
+        <th>Actions</th>
+    </tr>
+@foreach(var p in Model.Pictures) {
+    <tr>
+        <td>@p.ID</td>
+        <td><a href="/Door/@Model.EventCode/@p.ID"><img src="@p.ThumbnailURL" alt="Door @p.ID" /></a></td>
+        <td>
+            <p>Vote</p>
+            <p>Claim</p>
+        </td>
+    </tr>
+}
+</table>
