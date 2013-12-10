@@ -20,7 +20,7 @@ namespace DoorComp.Front
 
     public class DoorsResponse
     {
-        public string EventCode { get; set; }
+        public EventInfo Event { get; set; }
         public List<PictureInfo> Pictures { get; set; }
     }
 
@@ -33,7 +33,7 @@ namespace DoorComp.Front
             var ev = ((IPictureSource.IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
             if(null == ev)
                 throw HttpError.NotFound(string.Format("Cannot find event code {0}",request.EventCode));
-            var ret = new DoorsResponse() { EventCode = request.EventCode };
+            var ret = new DoorsResponse() { Event = ev };
             ret.Pictures = ((IPictureSource.IPictureSource)HttpContext.Current.Application["PhotoSource"]).ListPictures(string.Format("doorcomp,{0}", request.EventCode)).ToList();
             return ret;
         }
