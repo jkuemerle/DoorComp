@@ -1,0 +1,17 @@
+packages/*
+
+bin
+
+obj
+
+App_Data
+Databases
+Raven
+*.suo
+
+*.user
+
+*.vspscc
+
+*/_sgbak/*
+*.log
