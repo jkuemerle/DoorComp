@@ -1,0 +1,14 @@
+﻿@inherits ViewPage<EventsResponse>
+
+@{
+    ViewBag.Title = "Door Competition - Events";
+}
+
+These are the currently running door decoration competition events.
+
+<ul>
+@foreach (var e in Model.Events)
+{
+    <li><a href="/Doors/@e.Code">@e.Code</a><img src="@e.LogoURL" /></li>
+}
+</ul>

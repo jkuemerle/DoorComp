@@ -23,6 +23,7 @@ namespace DoorComp.Front
                 src = new FlickrSource.FlickrSource(creds[0], creds[1]);
             }
             this.Application.Add("PhotoSource", src);
+            this.Application.Add("EventSource", new EventSource.Mock.MockEventSource());
         }
 
         protected void Session_Start(object sender, EventArgs e)

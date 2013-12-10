@@ -94,7 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
+    <Compile Include="Door.cs" />
     <Compile Include="Doors.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -104,6 +106,9 @@
     <Content Include="packages.config" />
     <Content Include="default.cshtml" />
     <Content Include="Views\Doors.cshtml" />
+    <Content Include="Views\_Layout.cshtml" />
+    <Content Include="NotFound.cshtml" />
+    <Content Include="Views\Events.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -115,6 +120,10 @@
     <ProjectReference Include="..\DoorComp.Contract\DoorComp.Contract.csproj">
       <Project>{54c16965-dbe7-4eab-8849-c09de3f12020}</Project>
       <Name>DoorComp.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventSource.Mock\EventSource.Mock.csproj">
+      <Project>{fa1d9791-6588-49b9-9dad-d192cc343d7c}</Project>
+      <Name>EventSource.Mock</Name>
     </ProjectReference>
     <ProjectReference Include="..\FlickrSource\FlickrSource.csproj">
       <Project>{7c31fc94-1ec7-4300-9b49-8a61605d9a52}</Project>

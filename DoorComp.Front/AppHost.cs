@@ -14,6 +14,7 @@ using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
+using System.Net;
 namespace DoorComp.Front
 {
     public class AppHost : AppHostBase
@@ -24,6 +25,12 @@ namespace DoorComp.Front
         public override void Configure(Container container)
         {
             Plugins.Add(new RazorFormat());
+            SetConfig(new EndpointHostConfig
+            {
+                CustomHttpHandlers = {
+                    { HttpStatusCode.NotFound, new RazorHandler("/notfound") }
+                }
+            });
         }
     }
 }
