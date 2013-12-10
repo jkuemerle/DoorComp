@@ -6,10 +6,12 @@ using System.Web;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using IPictureSource;
+using ServiceStack.Common.Web;
 
 namespace DoorComp.Front
 {
-    [Route("/Door/{EventCode}/{ID}")]
+    [Route("/Door/{EventCode}/{DoorID}")]
+    [Route("/Door/{DoorID}")]
     public class Door
     {
         public string EventCode { get; set; }
@@ -18,8 +20,9 @@ namespace DoorComp.Front
 
     public class DoorResponse
     {
-        public string EventCode { get; set; }
-        public PictureInfo Info { get; set; }
+        public string DoorID { get; set; }
+        public EventInfo Event{ get; set; }
+        public PictureInfo Picture { get; set; }
     }
 
     [ClientCanSwapTemplates]
@@ -28,10 +31,11 @@ namespace DoorComp.Front
     {
         public object Get(Door request)
         {
-            var ret = new DoorResponse() { EventCode = request.EventCode };
-            ret.Info = ((IPictureSource.IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
-            //ret.Pictures = .ListPictures(string.Format("doorcomp,{0}", request.EventCode)).ToList();
-            return ret;
+            var ev = ((IPictureSource.IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
+            var pic = ((IPictureSource.IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
+            if(null == pic )
+                throw HttpError.NotFound(string.Format("Cannot find door {0}",request.DoorID));
+            return new DoorResponse() { DoorID = request.DoorID, Event = ev, Picture = pic };
         }
     }
 }

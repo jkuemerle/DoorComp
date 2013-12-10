@@ -1,0 +1,8 @@
+﻿@inherits ViewPage<DoorResponse>
+
+@{
+    ViewBag.Title = string.Format("Door Competition - Door {0}",Model.DoorID);
+}
+
+This is door: @Model.DoorID.
+<img src="@Model.Picture.FullSizeURL">

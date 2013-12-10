@@ -109,6 +109,7 @@
     <Content Include="Views\_Layout.cshtml" />
     <Content Include="NotFound.cshtml" />
     <Content Include="Views\Events.cshtml" />
+    <Content Include="Views\Door.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
