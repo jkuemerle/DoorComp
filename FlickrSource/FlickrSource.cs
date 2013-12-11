@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FlickrNet;
-using IPictureSource;
+using DoorComp.Common;
 
 namespace FlickrSource
 {
-    public class FlickrSource : IPictureSource.IPictureSource
+    public class FlickrSource : IPictureSource
     {
 
         private Flickr _flickr;

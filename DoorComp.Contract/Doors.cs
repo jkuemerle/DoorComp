@@ -6,7 +6,7 @@ using System.Text;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
-using IPictureSource;
+using DoorComp.Common;
 
 namespace DoorComp.Contract
 {

@@ -36,9 +36,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IPictureSource.PCL\IPictureSource.PCL.csproj">
+    <ProjectReference Include="..\DoorComp.Common.PCL\DoorComp.Common.PCL.csproj">
       <Project>{51d9fef7-9c58-4325-b082-8ceab918ec79}</Project>
-      <Name>IPictureSource.PCL</Name>
+      <Name>DoorComp.Common.PCL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

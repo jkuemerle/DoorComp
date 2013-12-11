@@ -43,9 +43,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IPictureSource\IPictureSource.csproj">
+    <ProjectReference Include="..\DoorComp.Common\DoorComp.Common.csproj">
       <Project>{d5f324f2-d67b-4f27-97d8-eeb0e74694c1}</Project>
-      <Name>IPictureSource</Name>
+      <Name>DoorComp.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
