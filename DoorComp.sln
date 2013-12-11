@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Contract", "DoorCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.Mock", "EventSource.Mock\EventSource.Mock.csproj", "{FA1D9791-6588-49B9-9DAD-D192CC343D7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteSource.Mock", "VoteSource.Mock\VoteSource.Mock.csproj", "{663739E7-7B4B-4510-8048-C6444504384D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{FA1D9791-6588-49B9-9DAD-D192CC343D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA1D9791-6588-49B9-9DAD-D192CC343D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA1D9791-6588-49B9-9DAD-D192CC343D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{663739E7-7B4B-4510-8048-C6444504384D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{663739E7-7B4B-4510-8048-C6444504384D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{663739E7-7B4B-4510-8048-C6444504384D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{663739E7-7B4B-4510-8048-C6444504384D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,7 @@ namespace DoorComp.Common
     public class PictureInfo
     {
         public string ID { get; set; }
+
         public string FullSizeURL { get; set; }
 
         public string ThumbnailURL { get; set; }

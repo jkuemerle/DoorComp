@@ -24,6 +24,7 @@ namespace DoorComp.Front
             }
             this.Application.Add("PhotoSource", src);
             this.Application.Add("EventSource", new EventSource.Mock.MockEventSource());
+            this.Application.Add("VoteSource", new VoteSource.Mock.MockVoteSource());
         }
 
         protected void Session_Start(object sender, EventArgs e)

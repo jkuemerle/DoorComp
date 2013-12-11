@@ -138,6 +138,10 @@
       <Project>{d5f324f2-d67b-4f27-97d8-eeb0e74694c1}</Project>
       <Name>DoorComp.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VoteSource.Mock\VoteSource.Mock.csproj">
+      <Project>{663739e7-7b4b-4510-8048-c6444504384d}</Project>
+      <Name>VoteSource.Mock</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -22,6 +23,8 @@ namespace DoorComp.Front
     {
         public EventInfo Event { get; set; }
         public List<PictureInfo> Pictures { get; set; }
+
+        public Dictionary<string, string> VoteURL { get; set; }
     }
 
     [ClientCanSwapTemplates]
@@ -35,6 +38,7 @@ namespace DoorComp.Front
                 throw HttpError.NotFound(string.Format("Cannot find event code {0}",request.EventCode));
             var ret = new DoorsResponse() { Event = ev };
             ret.Pictures = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).ListPictures(string.Format("doorcomp,{0}", request.EventCode)).ToList();
+            ret.VoteURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Vote/&DoorID={0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
             return ret;
         }
     }
