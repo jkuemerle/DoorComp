@@ -16,6 +16,9 @@ namespace DoorComp.Front
         protected void Application_Start(object sender, EventArgs e)
         {
             new AppHost().Init();
+#if LOCAL
+            this.Application.Add("PhotoSource", new PictureSource.Mock.MockPictureSource() );
+#else
             var creds = System.IO.File.ReadAllLines(@"c:\temp\flickrcred.txt");
             FlickrSource.FlickrSource src = null;
             if (creds.Length > 1)
@@ -23,8 +26,10 @@ namespace DoorComp.Front
                 src = new FlickrSource.FlickrSource(creds[0], creds[1]);
             }
             this.Application.Add("PhotoSource", src);
+#endif
             this.Application.Add("EventSource", new EventSource.Mock.MockEventSource());
             this.Application.Add("VoteSource", new VoteSource.Mock.MockVoteSource());
+            this.Application.Add("ClaimSource", new ClaimSource.Mock.MockClaimSource());
         }
 
         protected void Session_Start(object sender, EventArgs e)

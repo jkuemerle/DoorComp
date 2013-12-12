@@ -13,12 +13,13 @@ namespace DoorComp.Front
     public class Vote : IHttpHandler
     {
         public static IVote _voteSource;
+        public static object _voteSourceLock = new object();
 
         public void ProcessRequest(HttpContext context)
         {
             if(null == _voteSource)
             {
-                lock(_voteSource)
+                lock(_voteSourceLock)
                 {
                     if (null == _voteSource)
                         _voteSource = (IVote)HttpContext.Current.Application["VoteSource"];
@@ -37,8 +38,9 @@ namespace DoorComp.Front
                     }
                     break;
                 default:
+                    var v = ParsePayload(context.Request);
                     context.Response.ContentType = "text/plain";
-                    context.Response.Write("Welcome to the Door Competition voting service. You can post your vote to this endpoint.");
+                    context.Response.Write(string.Format("Welcome to the Door Competition voting service. You can post your vote to this endpoint. DoorID: {0}",v.DoorID));
                     break;
             }
         }
@@ -48,7 +50,8 @@ namespace DoorComp.Front
             var vi = new VoteInfo();
             vi.DoorID = Request.Params["DoorID"];
             vi.EventCode = Request.Params["EventCode"];
-            vi.Payload = ServiceStack.Text.JsonSerializer.SerializeToString(Request);
+            vi.Payload.Headers = Request.Headers;
+            vi.Payload.IP = Request.UserHostAddress;
             return vi;
         }
 

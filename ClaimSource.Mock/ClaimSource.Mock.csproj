@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D5F324F2-D67B-4F27-97D8-EEB0E74694C1}</ProjectGuid>
+    <ProjectGuid>{61ADD6A8-3683-43B1-85C1-9F14FD2F78AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoorComp.Common</RootNamespace>
-    <AssemblyName>DoorComp.Common</AssemblyName>
+    <RootNamespace>ClaimSource.Mock</RootNamespace>
+    <AssemblyName>ClaimSource.Mock</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,11 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IClaimSource.cs" />
-    <Compile Include="IEventSource.cs" />
-    <Compile Include="IPictureSource.cs" />
-    <Compile Include="IVote.cs" />
+    <Compile Include="MockClaimSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoorComp.Common\DoorComp.Common.csproj">
+      <Project>{d5f324f2-d67b-4f27-97d8-eeb0e74694c1}</Project>
+      <Name>DoorComp.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;LOCAL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -94,9 +94,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
+    <Compile Include="Claim.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="Doors.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -122,6 +124,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClaimSource.Mock\ClaimSource.Mock.csproj">
+      <Project>{61add6a8-3683-43b1-85c1-9f14fd2f78ab}</Project>
+      <Name>ClaimSource.Mock</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoorComp.Contract\DoorComp.Contract.csproj">
       <Project>{54c16965-dbe7-4eab-8849-c09de3f12020}</Project>
       <Name>DoorComp.Contract</Name>
@@ -137,6 +143,10 @@
     <ProjectReference Include="..\DoorComp.Common\DoorComp.Common.csproj">
       <Project>{d5f324f2-d67b-4f27-97d8-eeb0e74694c1}</Project>
       <Name>DoorComp.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PictureSource.Mock\PictureSource.Mock.csproj">
+      <Project>{df0e5ff6-0914-4ddb-89ea-028bbd23943a}</Project>
+      <Name>PictureSource.Mock</Name>
     </ProjectReference>
     <ProjectReference Include="..\VoteSource.Mock\VoteSource.Mock.csproj">
       <Project>{663739e7-7b4b-4510-8048-c6444504384d}</Project>

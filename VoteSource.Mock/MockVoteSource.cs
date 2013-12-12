@@ -10,8 +10,15 @@ namespace VoteSource.Mock
 {
     public class MockVoteSource : IVote
     {
+        private List<VoteInfo> _votes; 
+        public MockVoteSource()
+        {
+            _votes = new List<VoteInfo>();
+        }
+
         public bool PostVote(VoteInfo Vote)
         {
+            _votes.Add(Vote);
             return true;
         }
     }

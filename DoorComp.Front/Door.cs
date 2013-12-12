@@ -36,7 +36,7 @@ namespace DoorComp.Front
             var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
             if(null == pic )
                 throw HttpError.NotFound(string.Format("Cannot find door {0}",request.DoorID));
-            return new DoorResponse() { DoorID = request.DoorID, Event = ev, Picture = pic, VoteURL = string.Format("/Vote/&DoorID={0}", request.DoorID) };
+            return new DoorResponse() { DoorID = request.DoorID, Event = ev, Picture = pic, VoteURL = string.Format("/Vote/?DoorID={0}", request.DoorID) };
         }
     }
 }
