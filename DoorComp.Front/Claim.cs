@@ -27,5 +27,14 @@ namespace DoorComp.Front
         {
             return new ClaimResponse() { Status = true };
         }
+
+        public object Post(Claim request)
+        {
+            IClaimSource cs = (IClaimSource)HttpContext.Current.Application["ClaimSource"];
+            if(null == cs)
+                throw HttpError.NotFound(string.Format("Unable to make claim."));
+            cs.Claim(request.DoorID, new ClaimInfo());
+            return new ClaimResponse() { Status = true };
+        }
     }
 }

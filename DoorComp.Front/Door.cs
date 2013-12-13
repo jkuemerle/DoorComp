@@ -24,6 +24,8 @@ namespace DoorComp.Front
         public EventInfo Event{ get; set; }
         public PictureInfo Picture { get; set; }
         public string VoteURL { get; set; }
+
+        public string ClaimURL { get; set; }
     }
 
     [ClientCanSwapTemplates]
@@ -34,9 +36,14 @@ namespace DoorComp.Front
         {
             var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
             var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
+            var claim = ((IClaimSource)HttpContext.Current.Application["ClaimSource"]).GetClaim(request.DoorID);
             if(null == pic )
                 throw HttpError.NotFound(string.Format("Cannot find door {0}",request.DoorID));
-            return new DoorResponse() { DoorID = request.DoorID, Event = ev, Picture = pic, VoteURL = string.Format("/Vote/?DoorID={0}", request.DoorID) };
+            return new DoorResponse() { DoorID = request.DoorID, Event = ev, 
+                Picture = pic, 
+                VoteURL = string.Format("/Vote/?DoorID={0}", request.DoorID),
+                ClaimURL = string.Format("/Claim/{0}", request.DoorID)
+            };
         }
     }
 }

@@ -16,7 +16,6 @@ namespace DoorComp.Front
     public class Doors
     {
         public string EventCode { get; set; }
-        public string DoorID { get; set; }
     }
 
     public class DoorsResponse
@@ -25,6 +24,8 @@ namespace DoorComp.Front
         public List<PictureInfo> Pictures { get; set; }
 
         public Dictionary<string, string> VoteURL { get; set; }
+
+        public Dictionary<string, string> ClaimURL { get; set; }
     }
 
     [ClientCanSwapTemplates]
@@ -39,6 +40,7 @@ namespace DoorComp.Front
             var ret = new DoorsResponse() { Event = ev };
             ret.Pictures = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).ListPictures(string.Format("doorcomp,{0}", request.EventCode)).ToList();
             ret.VoteURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Vote/?DoorID={0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
+            ret.ClaimURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Claim/{0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
             return ret;
         }
     }
