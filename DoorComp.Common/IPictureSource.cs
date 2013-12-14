@@ -20,11 +20,29 @@ namespace DoorComp.Common
 
     }
 
+    public class PictureCredentials
+    {
+        public string APIKey { get; set; }
+        public string Secret { get; set; }
+
+        public PictureCredentials(params string[] Arguements)
+        {
+            if (Arguements.Length > 0)
+                this.APIKey = Arguements[0];
+            if (Arguements.Length > 1)
+                this.Secret = Arguements[1];
+        }
+    }
+
     public interface IPictureSource
     {
         IList<PictureInfo> ListPictures(string SearchString);
 
-        PictureInfo GetPicture(string ID);       
+        PictureInfo GetPicture(string ID);
+
+        bool RequiresCredentials { get; }
+
+        bool Init(PictureCredentials Credentials);
     }
 
 }

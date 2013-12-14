@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.Composition;
 
 using DoorComp.Common;
 
 namespace VoteSource.Mock
 {
+    [Export(typeof(IVote))]
     public class MockVoteSource : IVote
     {
         private List<VoteInfo> _votes; 

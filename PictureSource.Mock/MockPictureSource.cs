@@ -12,6 +12,9 @@ namespace PictureSource.Mock
     {
         private Dictionary<string,PictureInfo> _pics;
 
+        public bool RequiresCredentials { get { return false; } }
+
+        public bool Init(PictureCredentials Credentials) { return true; }
         public MockPictureSource()
         {
             _pics = new Dictionary<string,PictureInfo>();

@@ -66,6 +66,7 @@
     <Reference Include="ServiceStack.Text">
       <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -132,25 +133,9 @@
       <Project>{54c16965-dbe7-4eab-8849-c09de3f12020}</Project>
       <Name>DoorComp.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EventSource.Mock\EventSource.Mock.csproj">
-      <Project>{fa1d9791-6588-49b9-9dad-d192cc343d7c}</Project>
-      <Name>EventSource.Mock</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FlickrSource\FlickrSource.csproj">
-      <Project>{7c31fc94-1ec7-4300-9b49-8a61605d9a52}</Project>
-      <Name>FlickrSource</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DoorComp.Common\DoorComp.Common.csproj">
       <Project>{d5f324f2-d67b-4f27-97d8-eeb0e74694c1}</Project>
       <Name>DoorComp.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PictureSource.Mock\PictureSource.Mock.csproj">
-      <Project>{df0e5ff6-0914-4ddb-89ea-028bbd23943a}</Project>
-      <Name>PictureSource.Mock</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VoteSource.Mock\VoteSource.Mock.csproj">
-      <Project>{663739e7-7b4b-4510-8048-c6444504384d}</Project>
-      <Name>VoteSource.Mock</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

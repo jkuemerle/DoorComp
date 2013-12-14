@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.Composition;
 
 using FlickrNet;
 using DoorComp.Common;
 
 namespace FlickrSource
 {
+    [Export(typeof(IPictureSource))]
     public class FlickrSource : IPictureSource
     {
 
         private Flickr _flickr;
-        private FlickrSource() { }
+
+        public bool RequiresCredentials
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public bool Init(PictureCredentials Credentials)
+        {
+            _flickr = new Flickr(Credentials.APIKey, Credentials.Secret);
+            return true;
+        }
+        public FlickrSource() { }
 
         public FlickrSource(string APIKey, string Secret)
         {

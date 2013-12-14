@@ -4,32 +4,58 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.ComponentModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.Reflection;
+using System.IO;
 
 using ServiceStack;
 using ServiceStack.ServiceHost;
+using DoorComp.Common;
 
 namespace DoorComp.Front
 {
     public class Global : System.Web.HttpApplication
     {
-        
+        [Import]
+        private IEventSource _eventSource;
+
+        [Import]
+        private IPictureSource _picSource;
+        [Import]
+        private IVote _voteSource;
+        [Import]
+        private IClaimSource _claimSource;
+
         protected void Application_Start(object sender, EventArgs e)
         {
             new AppHost().Init();
-#if LOCAL
-            this.Application.Add("PhotoSource", new PictureSource.Mock.MockPictureSource() );
-#else
-            var creds = System.IO.File.ReadAllLines(@"c:\temp\flickrcred.txt");
-            FlickrSource.FlickrSource src = null;
-            if (creds.Length > 1)
+            AddSources();
+        }
+
+        private void AddSources()
+        {
+            var p = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "bin");
+            var catalog = new DirectoryCatalog(p, "*.dll");
+
+            var container = new CompositionContainer(catalog);
+            container.ComposeParts(this);
+            if (null != this._eventSource)
+                this.Application.Add("EventSource", this._eventSource);
+            if(null != this._picSource)
             {
-                src = new FlickrSource.FlickrSource(creds[0], creds[1]);
+                if(this._picSource.RequiresCredentials)
+                {
+                    var creds = new PictureCredentials(System.IO.File.ReadAllLines(@"c:\temp\flickrcred.txt"));
+                    this._picSource.Init(creds);
+                }
+                this.Application.Add("PhotoSource", this._picSource);
             }
-            this.Application.Add("PhotoSource", src);
-#endif
-            this.Application.Add("EventSource", new EventSource.Mock.MockEventSource());
-            this.Application.Add("VoteSource", new VoteSource.Mock.MockVoteSource());
-            this.Application.Add("ClaimSource", new ClaimSource.Mock.MockClaimSource());
+            if(null != this._voteSource)
+                this.Application.Add("VoteSource", this._voteSource);
+            if(null != this._claimSource)
+                this.Application.Add("ClaimSource", this._claimSource);
         }
 
         protected void Session_Start(object sender, EventArgs e)
