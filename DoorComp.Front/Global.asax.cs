@@ -27,6 +27,8 @@ namespace DoorComp.Front
         private IVote _voteSource;
         [Import]
         private IClaimSource _claimSource;
+        [Import]
+        private IDoorSource _doorSource;
 
         protected void Application_Start(object sender, EventArgs e)
         {
@@ -56,6 +58,8 @@ namespace DoorComp.Front
                 this.Application.Add("VoteSource", this._voteSource);
             if(null != this._claimSource)
                 this.Application.Add("ClaimSource", this._claimSource);
+            if (null != this._doorSource)
+                this.Application.Add("DoorSource", this._doorSource);
         }
 
         protected void Session_Start(object sender, EventArgs e)

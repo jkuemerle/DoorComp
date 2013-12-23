@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20617.1 PREVIEW
+VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Common", "DoorComp.Common\DoorComp.Common.csproj", "{D5F324F2-D67B-4F27-97D8-EEB0E74694C1}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureSource.Mock", "PictureSource.Mock\PictureSource.Mock.csproj", "{DF0E5FF6-0914-4DDB-89EA-028BBD23943A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClaimSource.Mock", "ClaimSource.Mock\ClaimSource.Mock.csproj", "{61ADD6A8-3683-43B1-85C1-9F14FD2F78AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorSource.SQLite", "DoorSource.SQLite\DoorSource.SQLite.csproj", "{C4421024-BD32-45CD-A2D9-BD96080719DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{61ADD6A8-3683-43B1-85C1-9F14FD2F78AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61ADD6A8-3683-43B1-85C1-9F14FD2F78AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61ADD6A8-3683-43B1-85C1-9F14FD2F78AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4421024-BD32-45CD-A2D9-BD96080719DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4421024-BD32-45CD-A2D9-BD96080719DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4421024-BD32-45CD-A2D9-BD96080719DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4421024-BD32-45CD-A2D9-BD96080719DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

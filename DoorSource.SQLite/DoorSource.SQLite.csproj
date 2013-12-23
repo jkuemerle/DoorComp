@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D5F324F2-D67B-4F27-97D8-EEB0E74694C1}</ProjectGuid>
+    <ProjectGuid>{C4421024-BD32-45CD-A2D9-BD96080719DC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoorComp.Common</RootNamespace>
-    <AssemblyName>DoorComp.Common</AssemblyName>
+    <RootNamespace>DoorSource.SQLite</RootNamespace>
+    <AssemblyName>DoorSource.SQLite</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,11 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IClaimSource.cs" />
-    <Compile Include="IDoorSource.cs" />
-    <Compile Include="IEventSource.cs" />
-    <Compile Include="IPictureSource.cs" />
-    <Compile Include="IVote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

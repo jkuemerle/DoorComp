@@ -41,7 +41,7 @@ namespace DoorComp.Front
                 throw HttpError.NotFound(string.Format("Cannot find door {0}",request.DoorID));
             return new DoorResponse() { DoorID = request.DoorID, Event = ev, 
                 Picture = pic, 
-                VoteURL = string.Format("/Vote/?DoorID={0}", request.DoorID),
+                VoteURL = string.Format("/Vote/{0}", request.DoorID),
                 ClaimURL = string.Format("/Claim/{0}", request.DoorID)
             };
         }

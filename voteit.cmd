@@ -1,0 +1,2 @@
+rem curl "http://localhost:4157/Claim/8368884461/Bob%%20Smith/bob@smith.com" --proxy 127.0.0.1:8888 -H "Accept: application/json" --data-ascii @c:\temp\claim.json
+curl "http://localhost:4157/Vote/8368884461" -H "Accept: application/json" -H "Content-Type: application/json" --proxy 127.0.0.1:8888 --data-ascii @c:\temp\vote.txt

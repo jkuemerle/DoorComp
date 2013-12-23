@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DoorComp.Common
 {
+    [Serializable]
     public class ClaimInfo
     {
         public string DoorID { get; set; }

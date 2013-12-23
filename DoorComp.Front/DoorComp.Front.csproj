@@ -104,9 +104,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vote.ashx.cs">
-      <DependentUpon>Vote.ashx</DependentUpon>
-    </Compile>
+    <Compile Include="Vote.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -116,7 +114,6 @@
     <Content Include="NotFound.cshtml" />
     <Content Include="Views\Events.cshtml" />
     <Content Include="Views\Door.cshtml" />
-    <None Include="Vote.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

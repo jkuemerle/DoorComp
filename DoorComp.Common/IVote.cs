@@ -7,22 +7,25 @@ using System.Collections.Specialized;
 
 namespace DoorComp.Common
 {
+    [Serializable]
     public class VotePayload
     {
         public string IP { get; set; }
         public NameValueCollection Headers { get; set; }
 
+        public IDictionary<string, string> Cookies { get; set; }
+
         public VotePayload()
         {
             this.Headers = new NameValueCollection();
+            this.Cookies = new Dictionary<string, string>();
         }
     }
 
+    [Serializable]
     public class VoteInfo
     {
         public string DoorID { get; set; }
-
-        public string EventCode { get; set; }
 
         public string VoterID { get; set; }
 
