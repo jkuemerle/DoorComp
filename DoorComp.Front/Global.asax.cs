@@ -20,7 +20,6 @@ namespace DoorComp.Front
     {
         [Import]
         private IEventSource _eventSource;
-
         [Import]
         private IPictureSource _picSource;
         [Import]
