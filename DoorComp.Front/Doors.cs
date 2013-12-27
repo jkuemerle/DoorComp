@@ -26,6 +26,7 @@ namespace DoorComp.Front
         public Dictionary<string, string> VoteURL { get; set; }
 
         public Dictionary<string, string> ClaimURL { get; set; }
+
     }
 
     [ClientCanSwapTemplates]
