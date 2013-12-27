@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Runtime.Caching;
 
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
-using DoorComp.Common;
 using ServiceStack.Common.Web;
+
+using DoorComp.Common;
 
 
 namespace DoorComp.Front
@@ -16,6 +18,12 @@ namespace DoorComp.Front
     public class Doors
     {
         public string EventCode { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            Doors test = (Doors)obj;
+            return this.EventCode.Equals(test.EventCode);
+        }
     }
 
     public class DoorsResponse
@@ -33,8 +41,14 @@ namespace DoorComp.Front
     [DefaultView("Doors")]
     public class DoorsService : Service
     {
+        private static ObjectCache cache = MemoryCache.Default;
+        private const int cacheSeconds = 240;
+        private static object cacheLock = new object();
         public object Get(Doors request)
         {
+            string key = string.Format("Doors:{0}",request.EventCode);
+            if (cache.Contains(key))
+                return cache.Get(key);
             var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
             if(null == ev)
                 throw HttpError.NotFound(string.Format("Cannot find event code {0}",request.EventCode));
@@ -42,6 +56,17 @@ namespace DoorComp.Front
             ret.Pictures = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).ListPictures(string.Format("doorcomp,{0}", request.EventCode)).ToList();
             ret.VoteURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Vote/{0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
             ret.ClaimURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Claim/{0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
+            if(!cache.Contains(key))
+            {
+                lock(cacheLock)
+                {
+                    if(!cache.Contains(key))
+                    {
+                        var policy = new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cacheSeconds) };
+                        cache.Add(key, ret, policy);
+                    }
+                }
+            }
             return ret;
         }
     }

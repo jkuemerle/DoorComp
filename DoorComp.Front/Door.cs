@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Runtime.Caching;
 
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
@@ -41,8 +42,16 @@ namespace DoorComp.Front
     [DefaultView("Door")]
     public class DoorService : Service
     {
+
+        private static ObjectCache cache = MemoryCache.Default;
+        private const int cacheSeconds = 240;
+        private static object cacheLock = new object();
+        
         public object Get(Door request)
         {
+            string key = string.Format("Door:{0}", request.DoorID);
+            if (cache.Contains(key))
+                return cache.Get(key);
             var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
             var claim = ((IClaimSource)HttpContext.Current.Application["ClaimSource"]).GetClaim(request.DoorID);
             var door = ((IDoorSource)HttpContext.Current.Application["DoorSource"]).GetDoor(request.DoorID);
@@ -55,6 +64,17 @@ namespace DoorComp.Front
                 DoorDetails = door,
                 ClaimDetails = claim
             };
+            if (!cache.Contains(key))
+            {
+                lock (cacheLock)
+                {
+                    if (!cache.Contains(key))
+                    {
+                        var policy = new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cacheSeconds) };
+                        cache.Add(key, resp, policy);
+                    }
+                }
+            }
             return resp;
         }
     }
