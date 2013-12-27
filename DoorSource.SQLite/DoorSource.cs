@@ -29,14 +29,27 @@ namespace DoorSource.SQLite
             var cmd = new SQLiteCommand(conn);
             cmd.CommandText = "SELECT DoorID, Location, Description FROM Doors WHERE DoorID = @DoorID LIMIT 1";
             cmd.Parameters.Add(new SQLiteParameter("@DoorID", DoorID));
-            var res = cmd.ExecuteReader();
-            if(res.HasRows && res.Read())
+            SQLiteDataReader res = null;
+            try
             {
-                ret.DoorID = DoorID;
-                ret.Location = res.GetString(1);
-                ret.Description = res.GetString(2);
+                res = cmd.ExecuteReader();
+                if (res.HasRows && res.Read())
+                {
+                    ret.DoorID = DoorID;
+                    ret.Location = res.GetString(1);
+                    ret.Description = res.GetString(2);
+                }
+                return ret;
             }
-            return ret;
+            catch(Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (null != res && !res.IsClosed)
+                    res.Close();
+            }
         }
     }
 }
