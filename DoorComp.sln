@@ -11,6 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlickrSource.Tests", "Flick
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Front", "DoorComp.Front\DoorComp.Front.csproj", "{C4301827-E49B-4B6A-9B35-BBA119F0F0E4}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B450DD10-8C6F-400A-9573-6A7F4E0F1506} = {B450DD10-8C6F-400A-9573-6A7F4E0F1506}
 		{C4421024-BD32-45CD-A2D9-BD96080719DC} = {C4421024-BD32-45CD-A2D9-BD96080719DC}
 		{EC0C8A49-EF44-4E22-BFB5-D9758CE6E32E} = {EC0C8A49-EF44-4E22-BFB5-D9758CE6E32E}
 		{FA1D9791-6588-49B9-9DAD-D192CC343D7C} = {FA1D9791-6588-49B9-9DAD-D192CC343D7C}
@@ -41,6 +42,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.SQLite", "EventSource.SQLite\EventSource.SQLite.csproj", "{EC0C8A49-EF44-4E22-BFB5-D9758CE6E32E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClaimSource.SQL", "ClaimSource.SQL\ClaimSource.SQL.csproj", "{74476CC6-6A92-406B-8F74-C56408A88E19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteSource.SQL", "VoteSource.SQL\VoteSource.SQL.csproj", "{B450DD10-8C6F-400A-9573-6A7F4E0F1506}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +111,10 @@ Global
 		{74476CC6-6A92-406B-8F74-C56408A88E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74476CC6-6A92-406B-8F74-C56408A88E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74476CC6-6A92-406B-8F74-C56408A88E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B450DD10-8C6F-400A-9573-6A7F4E0F1506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B450DD10-8C6F-400A-9573-6A7F4E0F1506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B450DD10-8C6F-400A-9573-6A7F4E0F1506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B450DD10-8C6F-400A-9573-6A7F4E0F1506}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
