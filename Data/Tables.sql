@@ -6,3 +6,6 @@ GO
 
 CREATE TABLE Votes (DoorID nvarchar(20), VoterID nvarchar(500))
 GO
+
+CREATE TABLE Claims (DoorID nvarchar(20), Name nvarchar(100), Email nvarchar(100))
+GO

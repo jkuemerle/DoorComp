@@ -13,8 +13,11 @@
         <td width="50%" rowspan="2" ><img src="@Model.Picture.FullSizeURL" style="vertical-align: middle;"></td>
         <td width="20%" rowspan="2" >
             <div style="vertical-align:middle">
-            <p><a href="@Model.VoteURL">Vote</a></p>
-            <p><a href="@Model.ClaimURL">Claim</a></p>
+                <p><a href="@Model.VoteURL">Vote</a></p>
+                <p><a href="@Model.ClaimURL">Claim</a></p>
+                @if(null != @Model.ClaimDetails && !string.IsNullOrEmpty(@Model.ClaimDetails.Name)) {
+                    <p>Claimed by: @Model.ClaimDetails.Name</p>                
+                }
             </div>
         </td> 
     </tr>

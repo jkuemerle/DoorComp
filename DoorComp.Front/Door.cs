@@ -16,6 +16,12 @@ namespace DoorComp.Front
     {
         public string EventCode { get; set; }
         public string DoorID { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var test = (Door) obj;
+            return this.EventCode.Equals(test.EventCode) && this.DoorID.Equals(test.DoorID);
+        }
     }
 
     public class DoorResponse
@@ -28,6 +34,8 @@ namespace DoorComp.Front
         public string ClaimURL { get; set; }
 
         public DoorInfo DoorDetails { get; set; }
+
+        public ClaimInfo ClaimDetails { get; set; }
     }
 
     [ClientCanSwapTemplates]
@@ -42,12 +50,14 @@ namespace DoorComp.Front
             var door = ((IDoorSource)HttpContext.Current.Application["DoorSource"]).GetDoor(request.DoorID);
             if(null == pic )
                 throw HttpError.NotFound(string.Format("Cannot find door {0}",request.DoorID));
-            return new DoorResponse() { DoorID = request.DoorID, Event = ev, 
+            var resp = new DoorResponse() { DoorID = request.DoorID, Event = ev, 
                 Picture = pic, 
                 VoteURL = string.Format("/Vote/{0}", request.DoorID),
                 ClaimURL = string.Format("/Claim/{0}", request.DoorID),
-                DoorDetails = door
+                DoorDetails = door,
+                ClaimDetails = claim
             };
+            return resp;
         }
     }
 }

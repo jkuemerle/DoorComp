@@ -40,8 +40,8 @@ namespace DoorComp.Front
             IClaimSource cs = (IClaimSource)HttpContext.Current.Application["ClaimSource"];
             if(null == cs)
                 throw HttpError.NotFound(string.Format("Unable to make claim."));
-            cs.Claim(request.DoorID, new ClaimInfo() {DoorID = request.DoorID, Name = request.Name, Email = request.EmailAddress});
-            return new ClaimResponse() { Status = true };
+            var stat = cs.Claim(request.DoorID, new ClaimInfo() {DoorID = request.DoorID, Name = request.Name, Email = request.EmailAddress});
+            return new ClaimResponse() { Status = stat};
         }
     }
 }
