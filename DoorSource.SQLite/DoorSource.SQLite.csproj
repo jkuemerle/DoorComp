@@ -72,8 +72,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rem copy "$(TargetPath)" "$(SolutionDir)\DoorComp.Front\bin"
-copy "$(TargetDir)FlickrNet.dll" "$(SolutionDir)\DoorComp.Front\bin"
-copy "$(TargetDir)System.Data.SQLite*.dll" "$(SolutionDir)\DoorComp.Front\bin"
+rem copy "$(TargetDir)FlickrNet.dll" "$(SolutionDir)\DoorComp.Front\bin"
+rem copy "$(TargetDir)System.Data.SQLite*.dll" "$(SolutionDir)\DoorComp.Front\bin"
 copy "$(TargetDir)x86\SQLite.Interop.dll" "$(SolutionDir)\DoorComp.Front\bin"
 </PostBuildEvent>
   </PropertyGroup>
