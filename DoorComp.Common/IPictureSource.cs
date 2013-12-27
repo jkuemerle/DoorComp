@@ -14,6 +14,8 @@ namespace DoorComp.Common
 
         public string ThumbnailURL { get; set; }
 
+        public string MediumURL { get; set; }
+
         public string URL { get; set; }
 
         public string Title { get; set; }

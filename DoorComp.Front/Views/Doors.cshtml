@@ -3,22 +3,42 @@
 @{
     ViewBag.Title = string.Format("{0} Door Competition - Doors",Model.Event.Code);
 }
+<h1>@Model.Event.Code Decorated Doors.</h1>
 
-These are the decorated doors for @Model.Event.Code.
-<table>
-    <tr>
-        <th>Door</th>
-        <th>Actions</th>
-    </tr>
-@foreach(var p in Model.Pictures) {
-    <tr>
-        <td><a href="/Door/@Model.Event.Code/@p.ID"><img src="@p.ThumbnailURL" alt="Door @p.ID" /></a></td>
-        <td>
-            <div style="vertical-align:middle">
-                <p><a href="@Model.VoteURL[p.ID]">Vote</a></p>
-                <p><a href="@Model.ClaimURL[p.ID]">Claim</a></p>
-            </div>
-        </td>
-    </tr>
-}
-</table>
+<script id="doors-template" type="text/x-handlebars-template">
+    <table>
+        {{#each Pictures}}
+        <tr>
+            <td>
+                <p><a href="/Door/{{ID}}"><img src="{{MediumURL}}" alt="{{ID}}" /></a></p>
+                <p style="display:block; margin-left:auto; margin-right:auto"><button value="Vote" onclick="vote('{{ID}}');">Vote</button>&nbsp;&nbsp;&nbsp;
+                <button value="Claim" onclick="showClaim('{{ID}}');">Claim</button></p>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</script>
+
+<div id="doors-content">
+
+</div>
+
+<script>
+    var result = @Html.Raw(@ServiceStack.Text.JsonSerializer.SerializeToString(@Model));
+    renderPage();
+
+    function rerender() {
+    }
+
+    function renderPage() {
+        var source = $("#doors-template").html();
+        var template = Handlebars.compile(source);
+        var html = template(result);
+        $("#doors-content").html(html);
+    }
+</script>
+
+
+
+
+

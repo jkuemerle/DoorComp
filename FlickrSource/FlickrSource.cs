@@ -41,7 +41,7 @@ namespace FlickrSource
             var retVal = new List<PictureInfo>();
             PhotoSearchOptions options = new PhotoSearchOptions() { Tags = SearchString, TagMode= TagMode.AllTags };
             retVal = (from a in _flickr.PhotosSearch(options) select new PictureInfo() { ID = a.PhotoId, FullSizeURL = a.MediumUrl, 
-                ThumbnailURL = a.ThumbnailUrl, Title = a.Title, URL = a.WebUrl}).ToList();
+                ThumbnailURL = a.ThumbnailUrl, Title = a.Title, URL = a.WebUrl, MediumURL = a.MediumUrl }).ToList();
             return retVal;
         }
 
