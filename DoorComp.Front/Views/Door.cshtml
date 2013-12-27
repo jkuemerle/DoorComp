@@ -7,10 +7,21 @@
 <div id="door-content">
 
 </div>
-    This is door: @Model.DoorID.
-    <img src="@Model.Picture.FullSizeURL">
-    <p><a href="@Model.VoteURL">Vote</a></p>
-    <p><a href="@Model.ClaimURL">Claim</a></p>
+<table>
+    <tr >
+        <td width="30%">@Model.Details.Description</td>
+        <td width="50%" rowspan="2" ><img src="@Model.Picture.FullSizeURL" style="vertical-align: middle;"></td>
+        <td width="20%" rowspan="2" >
+            <div style="vertical-align:middle">
+            <p><a href="@Model.VoteURL">Vote</a></p>
+            <p><a href="@Model.ClaimURL">Claim</a></p>
+            </div>
+        </td> 
+    </tr>
+    <tr >
+        <td width="30%">@Model.Details.Location</td>
+    </tr>    
+</table>
 
 <script id="door-template" type="text/x-handlebars-template">
 

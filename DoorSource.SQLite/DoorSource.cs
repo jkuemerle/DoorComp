@@ -23,7 +23,6 @@ namespace DoorSource.SQLite
         private DoorInfo Retrieve(string DoorID)
         {
             var ret = new DoorInfo();
-            //var conn = new SQLiteConnection(@"c:\temp\DoorComp.sqlite");
             var cs = ConfigurationManager.ConnectionStrings["DoorSource"].ConnectionString;
             var conn = new SQLiteConnection(cs);
             conn.Open();
