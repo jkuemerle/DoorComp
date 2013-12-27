@@ -34,7 +34,7 @@ namespace DoorComp.Front
             if (null != request.Status)
                 Enum.TryParse(request.Status, false, out stat);
             var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).ListEvents(stat).ToList();
-            if (null == ev || ev.Count < 1)
+            if (null == ev )
                 throw HttpError.NotFound(string.Format("There are currently no {0} events listed ", request.Status));
             var ret = new EventsResponse() { Events = ev};
             return ret;
