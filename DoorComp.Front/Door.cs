@@ -27,7 +27,7 @@ namespace DoorComp.Front
 
         public string ClaimURL { get; set; }
 
-        public DoorInfo Details { get; set; }
+        public DoorInfo DoorDetails { get; set; }
     }
 
     [ClientCanSwapTemplates]
@@ -46,7 +46,7 @@ namespace DoorComp.Front
                 Picture = pic, 
                 VoteURL = string.Format("/Vote/{0}", request.DoorID),
                 ClaimURL = string.Format("/Claim/{0}", request.DoorID),
-                Details = door
+                DoorDetails = door
             };
         }
     }
