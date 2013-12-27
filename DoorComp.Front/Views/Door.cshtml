@@ -3,29 +3,53 @@
 @{
     ViewBag.Title = string.Format("Door Competition - Door {0}",Model.DoorID);
 }
+<script id="door-template" type="text/x-handlebars-template">
+    <table>
+        <tr>
+            <td width="30%">{{DoorDetails.Description}}</td>
+            <td width="50%" rowspan="2"><img src="{{Picture.FullSizeURL}}" style="vertical-align: middle;"></td>
+            <td width="20%" rowspan="2">
+                <div style="vertical-align:middle">
+                    <p><button value="Vote" onclick="vote('{{DoorID}}');">Vote</button>
+                    <p><button value="Claim" onclick="showClaim('{{DoorID}}');">Claim</button>
+                    {{#if ClaimDetails.Name}}
+                    <p>Claimed by: {{ClaimDetails.Name}}</p>
+                    {{/if}}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%">{{DoorDetails.Location}}</td>
+        </tr>
+    </table>
+</script>
 
 <div id="door-content">
 
 </div>
-<table>
-    <tr >
-        <td width="30%">@Model.DoorDetails.Description</td>
-        <td width="50%" rowspan="2" ><img src="@Model.Picture.FullSizeURL" style="vertical-align: middle;"></td>
-        <td width="20%" rowspan="2" >
-            <div style="vertical-align:middle">
-                <p><a href="@Model.VoteURL">Vote</a></p>
-                <p><a href="@Model.ClaimURL">Claim</a></p>
-                @if(null != @Model.ClaimDetails && !string.IsNullOrEmpty(@Model.ClaimDetails.Name)) {
-                    <p>Claimed by: @Model.ClaimDetails.Name</p>                
-                }
-            </div>
-        </td> 
-    </tr>
-    <tr >
-        <td width="30%">@Model.DoorDetails.Location</td>
-    </tr>    
-</table>
 
-<script id="door-template" type="text/x-handlebars-template">
+<script>
+    var result = @Html.Raw(@ServiceStack.Text.JsonSerializer.SerializeToString(@Model));
+    renderPage();
 
+    function rerender() {
+        $.ajax({
+            headers: { Accept: "application/json" },
+            type: "GET",
+            url: "/Door/" + result.DoorID,
+            contentType: "application/json",
+            async: false,
+        })
+            .done(function (data) { result = data; renderPage();})
+            .fail(function (data) { });
+    }
+
+    function renderPage() {
+        var source = $("#door-template").html();
+        var template = Handlebars.compile(source);
+        var html = template(result);
+        $("#door-content").html(html);    
+    }
 </script>
+
+

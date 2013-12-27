@@ -3,19 +3,88 @@
 <head>
     <title>@ViewBag.Title</title>
     <style type="text/css">
-        body {
-            background: #E6E6E6;
-        }
+        body {background: #E6E6E6;}
+        label, input {display: block;}
+        input.text {margin-bottom: 12px;width: 95%;padding: .4em;}
+        fieldset {padding: 0;border: 0;margin-top: 25px;}
+        .ui-dialog .ui-state-error {padding: .3em;}
+        .validateTips {border: 1px solid transparent;padding: 0.3em;}
     </style>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
+    <div id="notify" style="position: relative; width: 100%; background-color: #FFEC8B; height: 50px; color: white; display: none; "></div>
+    <div id="claim-form" title="Claim This Door">
+        <p class="validateTips">All form fields are required.</p>
+        <form>
+            <fieldset>
+                <input type="hidden" disabled="disabled" id="claim-door-id" class="text ui-widget-content ui-corner-all">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="claim-name" class="text ui-widget-content ui-corner-all">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="claim-email" value="" class="text ui-widget-content ui-corner-all">
+            </fieldset>
+        </form>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="/scripts/handlebars.js"></script>
+    <script src="/scripts/jquery.history.js"></script>
+    <script>
+        $("#claim-form").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 350,
+            modal: true,
+            buttons: {
+                "Save": function () { claimDoor(); $(this).dialog("close"); rerender(); },
+                Cancel: function () { $(this).dialog("close"); }
+            }
+        });
+
+        function notify(message) {
+            $('#notify').html(message).slideDown();
+            $('#notify').click(function () {
+                $(this).slideUp().empty();
+            });
+        }
+
+        function vote(doorID) {
+            $.ajax({
+                type: "POST",
+                url: "/Vote/" + doorID,
+                contentType: "application/json",
+                async: false
+            })
+                .done(function (data) { notify("Your vote has been recorded.<br/>Click to dismiss."); })
+                .fail(function (data) { notify("There was an error recording your vote.<br/>Click to dismiss."); });
+        }
+
+        function showClaim(doorID) {
+            $("#claim-door-id").val(doorID);
+            $("#claim-form").dialog("open");
+        }
+
+        function claimDoor() {
+            //var cl = { DoorID: , Name: , EmailAddress:  };
+            var doorID = encodeURIComponent($("#claim-door-id").val());
+            var name = encodeURIComponent($("#claim-name").val());
+            var email = encodeURIComponent($("#claim-email").val());
+            $.ajax({
+                headers: { Accept: "application/json" },
+                type: "POST",
+                url: "/Claim/" + doorID + "/" + name + "/" + email,
+                contentType: "application/json",
+                async: false,
+            })
+                .done(function (data) { notify("Your claim has been recorded.<br/>Click to dismiss."); })
+                .fail(function (data) { notify("There was an error recording your claim.<br/>Click to dismiss."); });
+        }
+    </script>
     @RenderBody()
-        
+
     <h6 style="font-size:12px; color: #999; position: fixed; bottom: -25px; right: 10px; text-shadow: 0px 2px 3px #fff;">
         @Env.ServerUserAgent
     </h6>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/scripts/handlebars.js"></script>
-    <script src="/scripts/jquery.history.js"></script>
 </body>
 </html>

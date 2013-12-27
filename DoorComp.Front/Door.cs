@@ -27,7 +27,6 @@ namespace DoorComp.Front
     public class DoorResponse
     {
         public string DoorID { get; set; }
-        public EventInfo Event{ get; set; }
         public PictureInfo Picture { get; set; }
         public string VoteURL { get; set; }
 
@@ -44,13 +43,12 @@ namespace DoorComp.Front
     {
         public object Get(Door request)
         {
-            var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
             var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
             var claim = ((IClaimSource)HttpContext.Current.Application["ClaimSource"]).GetClaim(request.DoorID);
             var door = ((IDoorSource)HttpContext.Current.Application["DoorSource"]).GetDoor(request.DoorID);
             if(null == pic )
                 throw HttpError.NotFound(string.Format("Cannot find door {0}",request.DoorID));
-            var resp = new DoorResponse() { DoorID = request.DoorID, Event = ev, 
+            var resp = new DoorResponse() { DoorID = request.DoorID, 
                 Picture = pic, 
                 VoteURL = string.Format("/Vote/{0}", request.DoorID),
                 ClaimURL = string.Format("/Claim/{0}", request.DoorID),

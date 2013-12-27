@@ -1,0 +1,1 @@
+curl "http://localhost:4157/Door/8368884461" -H "Accept: application/json" -H "Content-Type: application/json" --proxy 127.0.0.1:8888
