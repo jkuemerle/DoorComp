@@ -7,8 +7,10 @@ using System.Runtime.Caching;
 
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
-using DoorComp.Common;
 using ServiceStack.Common.Web;
+using Gibraltar.Agent;
+
+using DoorComp.Common;
 
 
 namespace DoorComp.Front
@@ -41,7 +43,10 @@ namespace DoorComp.Front
                 Enum.TryParse(request.Status, false, out stat);
             string key = string.Format("Events:{0}", stat);
             if (cache.Contains(key))
+            {
+                Log.Information("Feature", "List Events", "Events with a status of {0} were served from cache.", stat.ToString());
                 return cache.Get(key);
+            }
             var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).ListEvents(stat).ToList();
             if (null == ev )
                 throw HttpError.NotFound(string.Format("There are currently no {0} events listed ", request.Status));
@@ -57,6 +62,7 @@ namespace DoorComp.Front
                     }
                 }
             }
+            Log.Information("Feature", "List Events", "Events with a status of {0} were served from database.", stat.ToString());
             return ret;
         }
     }

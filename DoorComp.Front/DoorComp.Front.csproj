@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gibraltar.Agent">
+      <HintPath>..\packages\Gibraltar.Agent.3.5.5.1583\lib\4.0\Gibraltar.Agent.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="ServiceStack">
       <HintPath>..\packages\ServiceStack.3.9.71\lib\net35\ServiceStack.dll</HintPath>
@@ -100,7 +103,6 @@
     <Compile Include="Door.cs" />
     <Compile Include="Doors.cs" />
     <Compile Include="Events.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

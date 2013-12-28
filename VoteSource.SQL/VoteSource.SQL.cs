@@ -18,11 +18,14 @@ namespace VoteSource.SQL
     {
         private static SqlConnection _conn = null; 
         private static object _connLock = new object();
-
+        private static byte[] _hashSalt;
+        private static string _hashString = null;
         static VoteSource()
         {
             if (null == _conn)
                 InitConnection();
+            if (null == _hashString)
+                InitSalt();
         }
 
         private static void InitConnection()
@@ -34,6 +37,22 @@ namespace VoteSource.SQL
                         _conn = new SqlConnection(ConfigurationManager.ConnectionStrings["VoteSource"].ConnectionString);
                 }
         }
+
+        private static void InitSalt()
+        {
+            if(null == _hashString)
+            {
+                lock(_connLock)
+                {
+                    if(null == _hashString)
+                    {
+                        _hashString = System.IO.File.ReadAllLines(@"C:\temp\salt.txt")[0];
+                        _hashSalt = Encoding.Unicode.GetBytes(_hashString);
+                    }
+                }
+            }
+        }
+
         public bool PostVote(VoteInfo Vote)
         {
             AddVote(Vote);
@@ -64,7 +83,7 @@ namespace VoteSource.SQL
         private string CalculateVoterID(VoteInfo Vote)
         {
             if (!string.IsNullOrEmpty(Vote.VoterID))
-                return HashValue(Vote.VoterID, Vote.DoorID);
+                return HashValue(Vote.VoterID, _hashSalt);
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(Vote.Payload.IP);
             foreach (var h in Vote.Payload.Headers.AllKeys)
@@ -72,14 +91,18 @@ namespace VoteSource.SQL
             foreach (var c in Vote.Payload.Cookies)
                 sb.AppendFormat("{0}:{1}\r\n", c.Key, c.Value);
             if (sb.Length > 0)
-                return HashValue(sb.ToString(), Vote.DoorID);
+                return HashValue(sb.ToString(), _hashSalt);
             return string.Empty;
         }
 
         private string HashValue(string Value, string Salt)
         {
+            return HashValue(Value, Encoding.Unicode.GetBytes(Salt));
+        }
+        private string HashValue(string Value, byte[] Salt)
+        {
             var payload = Encoding.Unicode.GetBytes(Value);
-            payload = payload.Concat(Encoding.Unicode.GetBytes(Salt)).ToArray();
+            payload = payload.Concat(Salt).ToArray();
             var hasher = SHA1Managed.Create();
             var hash = hasher.ComputeHash(payload);
             return Convert.ToBase64String(hash);

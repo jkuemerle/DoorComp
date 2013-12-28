@@ -7,6 +7,7 @@ using System.Runtime.Caching;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.Common.Web;
+using Gibraltar.Agent;
 
 using DoorComp.Common;
 
@@ -48,7 +49,10 @@ namespace DoorComp.Front
         {
             string key = string.Format("Doors:{0}",request.EventCode);
             if (cache.Contains(key))
+            {
+                Log.Information("Feature", "List Doors", "Doors for {0} were served from cache.", request.EventCode);
                 return cache.Get(key);
+            }
             var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
             if(null == ev)
                 throw HttpError.NotFound(string.Format("Cannot find event code {0}",request.EventCode));
@@ -67,6 +71,7 @@ namespace DoorComp.Front
                     }
                 }
             }
+            Log.Information("Feature", "List Doors", "Doors for {0} were served from database.", request.EventCode);
             return ret;
         }
     }

@@ -7,6 +7,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using DoorComp.Common;
 using ServiceStack.Common.Web;
+using Gibraltar.Agent;
 
 namespace DoorComp.Front
 {
@@ -32,11 +33,13 @@ namespace DoorComp.Front
     {
         public object Get(Claim request)
         {
+            Log.Information("Feature", "Get Claim", "Claim: {0}.", request);
             return new ClaimResponse() { Status = true };
         }
 
         public object Post(Claim request)
         {
+            Log.Information("Feature", "Make Claim", "Door {0} was claimed by {1} at {2}.", request.DoorID, request.Name, request.EmailAddress);
             IClaimSource cs = (IClaimSource)HttpContext.Current.Application["ClaimSource"];
             if(null == cs)
                 throw HttpError.NotFound(string.Format("Unable to make claim."));

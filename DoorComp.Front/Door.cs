@@ -6,8 +6,11 @@ using System.Runtime.Caching;
 
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
-using DoorComp.Common;
 using ServiceStack.Common.Web;
+using Gibraltar.Agent;
+
+using DoorComp.Common;
+
 
 namespace DoorComp.Front
 {
@@ -51,12 +54,18 @@ namespace DoorComp.Front
         {
             string key = string.Format("Door:{0}", request.DoorID);
             if (cache.Contains(key))
+            {
+                Log.Information("Feature", "Get Door", "Door {0} was served from cache.", request.DoorID);
                 return cache.Get(key);
+            }
             var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
             var claim = ((IClaimSource)HttpContext.Current.Application["ClaimSource"]).GetClaim(request.DoorID);
             var door = ((IDoorSource)HttpContext.Current.Application["DoorSource"]).GetDoor(request.DoorID);
             if(null == pic )
-                throw HttpError.NotFound(string.Format("Cannot find door {0}",request.DoorID));
+            {
+                Log.Error("Error", "Get Door", "Door {0} was requested and not found.", request.DoorID);
+                throw HttpError.NotFound(string.Format("Cannot find door {0}", request.DoorID));
+            }
             var resp = new DoorResponse() { DoorID = request.DoorID, 
                 Picture = pic, 
                 VoteURL = string.Format("/Vote/{0}", request.DoorID),
@@ -75,6 +84,7 @@ namespace DoorComp.Front
                     }
                 }
             }
+            Log.Information("Feature", "Get Door", "Door {0} was served from database", request.DoorID);
             return resp;
         }
     }
