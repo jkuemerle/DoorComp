@@ -12,6 +12,8 @@ using System.IO;
 
 using ServiceStack;
 using ServiceStack.ServiceHost;
+using Gibraltar.Agent;
+
 using DoorComp.Common;
 
 namespace DoorComp.Front
@@ -31,6 +33,7 @@ namespace DoorComp.Front
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            Log.StartSession();
             new AppHost().Init();
             AddSources();
         }
@@ -78,7 +81,7 @@ namespace DoorComp.Front
 
         protected void Application_Error(object sender, EventArgs e)
         {
-
+            Log.Error(Server.GetLastError(), "Error", "Application Error", "This application error occurred.");
         }
 
         protected void Session_End(object sender, EventArgs e)
@@ -88,7 +91,7 @@ namespace DoorComp.Front
 
         protected void Application_End(object sender, EventArgs e)
         {
-
+            Log.EndSession();
         }
     }
 }

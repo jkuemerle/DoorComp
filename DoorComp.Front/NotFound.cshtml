@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "Empty";
     var search = (@Request.PathInfo ?? "").SplitOnLast("/").Last().Trim();
+    Gibraltar.Agent.Log.Error("Error", "Not Found", "Error when retrieving {0}.", Request.PathInfo);
 }
 <!DOCTYPE HTML>
 <html>
@@ -55,7 +56,6 @@
         
         <div id="content">
             <p>
-                @Gibraltar.Agent.Log.Error("Error", "Not Found", "Error when retrieving {0}.", Request.PathInfo);
                 We're sorry <b>@Request.PathInfo</b> is no longer here.
             </p> 
             @if (!string.IsNullOrEmpty(search))
