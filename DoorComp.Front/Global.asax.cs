@@ -9,6 +9,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
 using System.IO;
+using System.Configuration;
 
 using ServiceStack;
 using ServiceStack.ServiceHost;
@@ -51,7 +52,13 @@ namespace DoorComp.Front
             {
                 if(this._picSource.RequiresCredentials)
                 {
-                    var creds = new PictureCredentials(System.IO.File.ReadAllLines(@"c:\temp\flickrcred.txt"));
+                    PictureCredentials creds;
+                    string apiKey = ConfigurationManager.AppSettings["photoAPIKey"];
+                    string secretKey = ConfigurationManager.AppSettings["photoSecretKey"];
+                    if (!string.IsNullOrEmpty(apiKey))
+                        creds = new PictureCredentials(apiKey, secretKey);
+                    else
+                        creds = new PictureCredentials(System.IO.File.ReadAllLines(@"c:\temp\flickrcred.txt"));
                     this._picSource.Init(creds);
                 }
                 this.Application.Add("PhotoSource", this._picSource);

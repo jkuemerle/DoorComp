@@ -46,7 +46,12 @@ namespace VoteSource.SQL
                 {
                     if(null == _hashString)
                     {
-                        _hashString = System.IO.File.ReadAllLines(@"C:\temp\salt.txt")[0];
+                        if (System.Configuration.ConfigurationManager.AppSettings.AllKeys.Contains("hashString"))
+                            _hashString = System.Configuration.ConfigurationManager.AppSettings["hashString"];
+                        if (null == _hashString && System.IO.File.Exists(@"C:\temp\salt.txt"))
+                            _hashString = System.IO.File.ReadAllLines(@"C:\temp\salt.txt")[0];
+                        if (null == _hashString)
+                            _hashString = "This is the last ditch hash seed.";
                         _hashSalt = Encoding.Unicode.GetBytes(_hashString);
                     }
                 }

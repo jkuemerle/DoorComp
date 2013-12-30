@@ -19,13 +19,12 @@
   </Target>
 
   <ItemGroup>
-    <DeployFiles Include="$(DeployDirectory)\**\*.*" />
+    <DeployFiles Include="$(DeployDirectory)\**\*.*" Exclude="$(DeployDirectory)\.git\**\*.*" />
     <ExcludeDlls Include="$(MSBuildProjectDirectory)\DoorComp.Front\obj\**\*.*" />
     <ExcludeDlls Include="$(MSBuildProjectDirectory)\DoorComp.Front\bin\**\SQLite.Interop.dll" />
   </ItemGroup>
   <ItemGroup>
     <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.cshtml" />
-    <!--<DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.dll" Exclude="@ExcludeDlls"/>-->
     <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.js" />
     <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.css" />
     <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\Global.*" />
