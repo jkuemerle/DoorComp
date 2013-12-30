@@ -27,6 +27,7 @@ namespace FlickrSource
         public bool Init(PictureCredentials Credentials)
         {
             _flickr = new Flickr(Credentials.APIKey, Credentials.Secret);
+            _flickr.InstanceCacheDisabled = true;
             return true;
         }
         public FlickrSource() { }
@@ -34,6 +35,7 @@ namespace FlickrSource
         public FlickrSource(string APIKey, string Secret)
         {
             _flickr = new Flickr(APIKey, Secret);
+            _flickr.InstanceCacheDisabled = true;
         }
 
         public IList<PictureInfo> ListPictures(string SearchString)

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IPictureSource")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("DoorComp.Common")]
+[assembly: AssemblyDescription("Common interfaces for DoorComp components and services.")]
+[assembly: AssemblyProduct("DoorComp.Common")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IPictureSource")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("Joe Kuemerle")]
+[assembly: AssemblyCopyright("Copyright ©  2013 Joe Kuemerle")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

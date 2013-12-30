@@ -23,11 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Front", "DoorComp.
 		{DF0E5FF6-0914-4DDB-89EA-028BBD23943A} = {DF0E5FF6-0914-4DDB-89EA-028BBD23943A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Contract.PCL", "DoorComp.Contract.PCL\DoorComp.Contract.PCL.csproj", "{7EEBA4F2-5AA6-4A7C-B23B-C5ED132F6C4F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Common.PCL", "DoorComp.Common.PCL\DoorComp.Common.PCL.csproj", "{51D9FEF7-9C58-4325-B082-8CEAB918EC79}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Contract", "DoorComp.Contract\DoorComp.Contract.csproj", "{54C16965-DBE7-4EAB-8849-C09DE3F12020}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.Mock", "EventSource.Mock\EventSource.Mock.csproj", "{FA1D9791-6588-49B9-9DAD-D192CC343D7C}"
 EndProject
@@ -51,6 +47,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorSource.SQL", "DoorSourc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.SQL", "EventSource.SQL\EventSource.SQL.csproj", "{1D96E3BE-2084-4806-9503-3A3B2616EC1F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{71879106-998F-4995-969A-C3C11DCD12CC}"
+	ProjectSection(SolutionItems) = preProject
+		Data\Data.sql = Data\Data.sql
+		Data\Indexes.sql = Data\Indexes.sql
+		Data\Tables.sql = Data\Tables.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E99CBC6B-0E4F-4A32-8F88-8D8A2A78A29D}"
+	ProjectSection(SolutionItems) = preProject
+		build.proj = build.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,18 +81,10 @@ Global
 		{C4301827-E49B-4B6A-9B35-BBA119F0F0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4301827-E49B-4B6A-9B35-BBA119F0F0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4301827-E49B-4B6A-9B35-BBA119F0F0E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7EEBA4F2-5AA6-4A7C-B23B-C5ED132F6C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EEBA4F2-5AA6-4A7C-B23B-C5ED132F6C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EEBA4F2-5AA6-4A7C-B23B-C5ED132F6C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7EEBA4F2-5AA6-4A7C-B23B-C5ED132F6C4F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51D9FEF7-9C58-4325-B082-8CEAB918EC79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51D9FEF7-9C58-4325-B082-8CEAB918EC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51D9FEF7-9C58-4325-B082-8CEAB918EC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D9FEF7-9C58-4325-B082-8CEAB918EC79}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54C16965-DBE7-4EAB-8849-C09DE3F12020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54C16965-DBE7-4EAB-8849-C09DE3F12020}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54C16965-DBE7-4EAB-8849-C09DE3F12020}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54C16965-DBE7-4EAB-8849-C09DE3F12020}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA1D9791-6588-49B9-9DAD-D192CC343D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA1D9791-6588-49B9-9DAD-D192CC343D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA1D9791-6588-49B9-9DAD-D192CC343D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU

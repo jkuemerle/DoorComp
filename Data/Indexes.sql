@@ -1,0 +1,26 @@
+CREATE CLUSTERED INDEX pkDoors ON dbo.Doors(ID)
+GO
+
+CREATE NONCLUSTERED INDEX ixDoors ON dbo.Doors(DoorID)
+GO
+
+CREATE CLUSTERED INDEX pkEvents ON dbo.Events(ID)
+GO
+
+CREATE NONCLUSTERED INDEX ixEventsCode ON dbo.Events(Code)
+GO
+
+CREATE NONCLUSTERED INDEX ixEventsStatus ON dbo.Events(Status,Code)
+GO
+
+CREATE CLUSTERED INDEX pkVotes ON dbo.Votes(ID)
+GO
+
+CREATE NONCLUSTERED INDEX ixVotesDoorID ON dbo.Votes(DoorID)
+GO
+
+CREATE CLUSTERED INDEX pkClaims ON dbo.Claims(ID)
+GO
+
+CREATE NONCLUSTERED INDEX ixClaimsDoorID ON dbo.Claims(DoorID)
+GO

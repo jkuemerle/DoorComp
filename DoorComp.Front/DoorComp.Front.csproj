@@ -125,10 +125,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DoorComp.Contract\DoorComp.Contract.csproj">
-      <Project>{54c16965-dbe7-4eab-8849-c09de3f12020}</Project>
-      <Name>DoorComp.Contract</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DoorComp.Common\DoorComp.Common.csproj">
       <Project>{d5f324f2-d67b-4f27-97d8-eeb0e74694c1}</Project>
       <Name>DoorComp.Common</Name>

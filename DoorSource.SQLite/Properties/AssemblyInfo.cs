@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DoorSource.SQLite")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Joe Kuemerle")]
 [assembly: AssemblyProduct("DoorSource.SQLite")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCopyright("Copyright ©  2013 Joe Kuemerle")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

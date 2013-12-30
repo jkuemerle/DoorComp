@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <DeploymentPlatform Condition=" '$(DeploymentPlatform)' == '' ">Integration</DeploymentPlatform>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DeployDirectory>C:\temp\DoorCompDeploy\$(DeploymentPlatform)</DeployDirectory>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <ItemGroup>
+      <DoorCompProjects Include="$(MSBuildProjectDirectory)\DoorComp.sln">
+        <Properties>Configuration=$(Configuration)</Properties>
+      </DoorCompProjects>
+    </ItemGroup>
+    <MSBuild BuildInParallel="false" Projects="@(DoorCompProjects)">
+    </MSBuild>
+  </Target>
+
+  <ItemGroup>
+    <DeployFiles Include="$(DeployDirectory)\**\*.*" />
+    <ExcludeDlls Include="$(MSBuildProjectDirectory)\DoorComp.Front\obj\**\*.*" />
+    <ExcludeDlls Include="$(MSBuildProjectDirectory)\DoorComp.Front\bin\**\SQLite.Interop.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.cshtml" />
+    <!--<DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.dll" Exclude="@ExcludeDlls"/>-->
+    <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.js" />
+    <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\**\*.css" />
+    <DeploymentFiles Include="$(MSBuildProjectDirectory)\DoorComp.Front\Global.*" />
+    <DeploymentFilesBin Include="$(MSBuildProjectDirectory)\DoorComp.Front\bin\**\*.dll" Exclude="$(MSBuildProjectDirectory)\DoorComp.Front\bin\**\SQLite.Interop.dll"/>
+  </ItemGroup>
+
+  <Target Name="CleanDeploy">
+    <Delete Files="@(DeployFiles)" />
+  </Target>
+  
+  <Target Name="CopyToDeploy" DependsOnTargets="CleanDeploy">
+    <Copy SourceFiles="@(DeploymentFiles)" DestinationFolder="$(DeployDirectory)\%(DeploymentFiles.RecursiveDir)" />
+    <Copy SourceFiles="@(DeploymentFilesBin)" DestinationFolder="$(DeployDirectory)\bin\%(DeploymentFilesBin.RecursiveDir)" />
+    <ItemGroup>
+      <WebConfig Include="C:\temp\DoorCompArtifacts\Web.$(DeploymentPlatform).config"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(WebConfig)" DestinationFiles="$(DeployDirectory)\Web.config"  />
+  </Target>
+  
+  <Target Name="UpdateConfig">
+    
+  </Target>
+
+  <Target Name="Deploy" DependsOnTargets="CleanDeploy;CopyToDeploy">
+    
+  </Target>
+  
+</Project>

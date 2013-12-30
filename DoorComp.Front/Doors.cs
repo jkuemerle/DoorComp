@@ -47,32 +47,40 @@ namespace DoorComp.Front
         private static object cacheLock = new object();
         public object Get(Doors request)
         {
-            string key = string.Format("Doors:{0}",request.EventCode);
-            if (cache.Contains(key))
+            try
             {
-                Log.Information("Feature", "List Doors", "Doors for {0} were served from cache.", request.EventCode);
-                return cache.Get(key);
-            }
-            var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
-            if(null == ev)
-                throw HttpError.NotFound(string.Format("Cannot find event code {0}",request.EventCode));
-            var ret = new DoorsResponse() { Event = ev };
-            ret.Pictures = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).ListPictures(string.Format("doorcomp,{0}", request.EventCode)).ToList();
-            ret.VoteURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Vote/{0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
-            ret.ClaimURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Claim/{0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
-            if(!cache.Contains(key))
-            {
-                lock(cacheLock)
+                string key = string.Format("Doors:{0}", request.EventCode);
+                if (cache.Contains(key))
                 {
-                    if(!cache.Contains(key))
+                    Log.Information("Feature", "List Doors", "Doors for {0} were served from cache.", request.EventCode);
+                    return cache.Get(key);
+                }
+                var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).GetEvent(request.EventCode);
+                if (null == ev)
+                    throw HttpError.NotFound(string.Format("Cannot find event code {0}", request.EventCode));
+                var ret = new DoorsResponse() { Event = ev };
+                ret.Pictures = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).ListPictures(string.Format("doorcomp,{0}", request.EventCode)).ToList();
+                ret.VoteURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Vote/{0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
+                ret.ClaimURL = (from a in ret.Pictures select new { ID = a.ID, URL = string.Format("/Claim/{0}", a.ID) }).ToDictionary(x => x.ID, x => x.URL);
+                if (!cache.Contains(key))
+                {
+                    lock (cacheLock)
                     {
-                        var policy = new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cacheSeconds) };
-                        cache.Add(key, ret, policy);
+                        if (!cache.Contains(key))
+                        {
+                            var policy = new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cacheSeconds) };
+                            cache.Add(key, ret, policy);
+                        }
                     }
                 }
+                Log.Information("Feature", "List Doors", "Doors for {0} were served from database.", request.EventCode);
+                return ret;
             }
-            Log.Information("Feature", "List Doors", "Doors for {0} were served from database.", request.EventCode);
-            return ret;
+            catch(Exception ex)
+            {
+                Log.Error(ex, "Error", "List Doors", "Error when listing doors for event {0}", request.EventCode);
+                throw;
+            }
         }
     }
 }

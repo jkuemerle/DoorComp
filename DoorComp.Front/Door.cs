@@ -52,40 +52,51 @@ namespace DoorComp.Front
         
         public object Get(Door request)
         {
-            string key = string.Format("Door:{0}", request.DoorID);
-            if (cache.Contains(key))
+            try
             {
-                Log.Information("Feature", "Get Door", "Door {0} was served from cache.", request.DoorID);
-                return cache.Get(key);
-            }
-            var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
-            var claim = ((IClaimSource)HttpContext.Current.Application["ClaimSource"]).GetClaim(request.DoorID);
-            var door = ((IDoorSource)HttpContext.Current.Application["DoorSource"]).GetDoor(request.DoorID);
-            if(null == pic )
-            {
-                Log.Error("Error", "Get Door", "Door {0} was requested and not found.", request.DoorID);
-                throw HttpError.NotFound(string.Format("Cannot find door {0}", request.DoorID));
-            }
-            var resp = new DoorResponse() { DoorID = request.DoorID, 
-                Picture = pic, 
-                VoteURL = string.Format("/Vote/{0}", request.DoorID),
-                ClaimURL = string.Format("/Claim/{0}", request.DoorID),
-                DoorDetails = door,
-                ClaimDetails = claim
-            };
-            if (!cache.Contains(key))
-            {
-                lock (cacheLock)
+                string key = string.Format("Door:{0}", request.DoorID);
+                if (cache.Contains(key))
                 {
-                    if (!cache.Contains(key))
+                    Log.Information("Feature", "Get Door", "Door {0} was served from cache.", request.DoorID);
+                    return cache.Get(key);
+                }
+                var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
+                var claim = ((IClaimSource)HttpContext.Current.Application["ClaimSource"]).GetClaim(request.DoorID);
+                var door = ((IDoorSource)HttpContext.Current.Application["DoorSource"]).GetDoor(request.DoorID);
+                if (null == pic)
+                {
+                    Log.Error("Error", "Get Door", "Door {0} was requested and not found.", request.DoorID);
+                    throw HttpError.NotFound(string.Format("Cannot find door {0}", request.DoorID));
+                }
+                var resp = new DoorResponse()
+                {
+                    DoorID = request.DoorID,
+                    Picture = pic,
+                    VoteURL = string.Format("/Vote/{0}", request.DoorID),
+                    ClaimURL = string.Format("/Claim/{0}", request.DoorID),
+                    DoorDetails = door,
+                    ClaimDetails = claim
+                };
+                if (!cache.Contains(key))
+                {
+                    lock (cacheLock)
                     {
-                        var policy = new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cacheSeconds) };
-                        cache.Add(key, resp, policy);
+                        if (!cache.Contains(key))
+                        {
+                            var policy = new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cacheSeconds) };
+                            cache.Add(key, resp, policy);
+                        }
                     }
                 }
+                Log.Information("Feature", "Get Door", "Door {0} was served from database", request.DoorID);
+                return resp;
             }
-            Log.Information("Feature", "Get Door", "Door {0} was served from database", request.DoorID);
-            return resp;
-        }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error", "Get Door", "Error when requesting door {0}", request.DoorID);
+                throw;
+            }
+
+            }
     }
 }
