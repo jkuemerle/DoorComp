@@ -54,6 +54,10 @@ namespace DoorComp.Front
                 if (null == cs)
                     throw new Exception(string.Format("No ClaimSource, unable to make claim."));
                 var stat = cs.Claim(request.DoorID, new ClaimInfo() { DoorID = request.DoorID, Name = request.Name, Email = request.EmailAddress });
+                if(stat)
+                {
+                    Common.ExpireDoor(request.DoorID);
+                }
                 return new ClaimResponse() { Status = stat };
             }
             catch(Exception ex)
@@ -62,5 +66,7 @@ namespace DoorComp.Front
                 throw;
             }
         }
+
+
     }
 }
