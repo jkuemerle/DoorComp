@@ -6,9 +6,12 @@
 
 These are the currently running door decoration competition events.
 
-<ul>
+<table width="100%">
 @foreach (var e in Model.Events)
 {
-    <li><a href="/Doors/@e.Code">@e.Code</a><img src="@e.LogoURL" /></li>
+    <tr>
+        <td><div style="vertical-align: middle;"><a href="/Doors/@e.Code">@e.Description</a></div></td>
+        <td><a href="/Doors/@e.Code"><img src="@e.LogoURL" style="vertical-align: middle;" /></a></td>
+    </tr>
 }
-</ul>
+</table>

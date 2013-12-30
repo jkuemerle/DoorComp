@@ -2,7 +2,24 @@
 
 @{
     ViewBag.Title = "Door Competition";
-    Gibraltar.Agent.Log.Information("Feature", "Home Page", "Home page hit.");
+    string where = "";
+    if(System.Configuration.ConfigurationManager.AppSettings.AllKeys.Contains("currentEvent")) {
+        where = string.Format("Doors/{0}", System.Configuration.ConfigurationManager.AppSettings["currentEvent"]);
+        if (!string.IsNullOrEmpty(where))
+        {
+            Gibraltar.Agent.Log.Information("Feature", "Home Page", "Home page to {0}.",where);
+            Response.Redirect(where);
+        }
+        else {
+            Gibraltar.Agent.Log.Information("Feature", "Home Page", "Home page to active events.");
+            Response.Redirect("Events");
+        }
+    }
+    else
+    {
+        Gibraltar.Agent.Log.Information("Feature", "Home Page", "Home page to active events.");
+        Response.Redirect("Events");
+    }
 }
 
-This is the default page.
+This is the default door decoration competition page. Check out our <a href="Events">active events</a>.
