@@ -25,6 +25,7 @@
 
 <script>
     var result = @Html.Raw(@ServiceStack.Text.JsonSerializer.SerializeToString(@Model));
+    result.Pictures = shuffleArray(result.Pictures); 
     renderPage();
 
     function rerender() {

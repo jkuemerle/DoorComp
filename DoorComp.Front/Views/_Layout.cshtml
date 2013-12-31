@@ -32,6 +32,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="/scripts/handlebars.js"></script>
     <script src="/scripts/jquery.history.js"></script>
+    <script src="/scripts/cookies.js"></script>
     <script>
         $("#claim-form").dialog({
             autoOpen: false,
@@ -81,6 +82,36 @@
             })
                 .done(function (data) { notify("Your claim has been recorded.<br/>Click to dismiss."); })
                 .fail(function (data) { notify("There was an error recording your claim.<br/>Click to dismiss."); });
+        }
+
+        // the initial seed
+        Math.seed = docCookies.getItem('randomSeed');
+        if (!Math.seed) {
+            Math.seed = Math.floor(Math.random() * 10000);
+            docCookies.setItem('randomSeed', Math.seed);
+        }
+
+        // in order to work 'Math.seed' must NOT be undefined,
+        // so in any case, you HAVE to provide a Math.seed
+        Math.seededRandom = function (max, min) {
+            max = max || 1;
+            min = min || 0;
+
+            Math.seed = (Math.seed * 9301 + 49297) % 233280;
+            var rnd = Math.seed / 233280;
+
+            return min + rnd * (max - min);
+        }
+
+        /* Shuffle array in place but use a seeded series of random numbers so they always render in the same order on future visits */
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.seededRandom() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
         }
     </script>
     @RenderBody()
