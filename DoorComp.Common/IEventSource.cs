@@ -10,6 +10,7 @@ namespace DoorComp.Common
     [Flags]
     public enum EventStatus
     {
+        None = 0,
         Active = 1,
         Closed = 2,
         Archived = 4
@@ -23,6 +24,10 @@ namespace DoorComp.Common
 
         public EventStatus Status { get; set; }
 
+        public string StatusString { get; set; }
+
+        public bool IsOpen { get; set;
+        }
         public string LogoURL { get; set; }
     }
     public interface IEventSource

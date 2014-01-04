@@ -52,6 +52,10 @@
             });
         }
 
+        function goTo(doorID) {
+            document.location = '/Door/' + doorID;
+        }
+
         function vote(doorID) {
             $.ajax({
                 type: "POST",

@@ -4,8 +4,9 @@
     ViewBag.Title = "Door Competition";
     string where = "";
     if(System.Configuration.ConfigurationManager.AppSettings.AllKeys.Contains("currentEvent")) {
-        where = string.Format("Doors/{0}", System.Configuration.ConfigurationManager.AppSettings["currentEvent"]);
-        if (!string.IsNullOrEmpty(where))
+        var curEvent = System.Configuration.ConfigurationManager.AppSettings["currentEvent"];
+        where = string.Format("Doors/{0}", curEvent);
+        if (!string.IsNullOrEmpty(curEvent))
         {
             Gibraltar.Agent.Log.Information("Feature", "Home Page", "Home page to {0}.",where);
             Response.Redirect(where);

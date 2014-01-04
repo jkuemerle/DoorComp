@@ -40,7 +40,7 @@ namespace DoorComp.Front
         {
             try
             {
-                EventStatus stat = EventStatus.Active;
+                EventStatus stat = EventStatus.Active | EventStatus.Closed;
                 if (null != request.Status)
                     Enum.TryParse(request.Status, false, out stat);
                 string key = string.Format("Events:{0}", stat);

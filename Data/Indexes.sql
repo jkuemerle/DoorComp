@@ -4,6 +4,9 @@ GO
 CREATE NONCLUSTERED INDEX ixDoors ON dbo.Doors(DoorID)
 GO
 
+CREATE NONCLUSTERED INDEX ixDoorsEvent ON dbo.Doors(EventID)
+GO
+
 CREATE CLUSTERED INDEX pkEvents ON dbo.Events(ID)
 GO
 

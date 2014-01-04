@@ -4,14 +4,46 @@
     ViewBag.Title = "Door Competition - Events";
 }
 
-These are the currently running door decoration competition events.
+These are the current door decoration competition events.
 
-<table width="100%">
-@foreach (var e in Model.Events)
-{
-    <tr>
-        <td><div style="vertical-align: middle;"><a href="/Doors/@e.Code">@e.Description</a></div></td>
-        <td><a href="/Doors/@e.Code"><img src="@e.LogoURL" style="vertical-align: middle;" /></a></td>
-    </tr>
-}
-</table>
+
+<script id="events-template" type="text/x-handlebars-template">
+    <table width="100%">
+        <tr>
+            <td>Status</td>
+            <td>Event</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {{#each Events}}
+        <tr>
+            <td><div style="vertical-align: middle;">{{StatusString}}</td>
+            <td><div style="vertical-align: middle;"><a href="/Doors/{{Code}}">{{Description}}</a></div></td>
+            <td><a href="/Doors/{{Code}}"><img src="{{LogoURL}}" style="vertical-align: middle;" /></a></td>
+            <td>
+                <div style="vertical-align: middle;">
+                    <p><a href="/Doors/{{Code}}"><b>Doors</b></a></p>
+                    {{#unless IsOpen}}<p><a href="/Results/{{Code}}"><b>Results</b></a></p>{{/unless}}
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</script>
+
+<div id="events-content">
+
+</div>
+
+<script>
+    var result = @Html.Raw(@ServiceStack.Text.JsonSerializer.SerializeToString(@Model));
+    renderPage();
+
+    function renderPage() {
+        var source = $("#events-template").html();
+        var template = Handlebars.compile(source);
+        var html = template(result);
+        $("#events-content").html(html);
+    }
+
+</script>

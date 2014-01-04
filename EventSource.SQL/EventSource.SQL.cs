@@ -37,7 +37,28 @@ namespace EventSource.SQL
             var retVal = new List<EventInfo>();
             if (null == _conn)
                 InitConnection();
-            var cmd = new SqlCommand("SELECT Code, Description, Status, LogoURL FROM Events WHERE Status = @Status");
+            string statusClause = string.Empty;
+            if(Status != EventStatus.None)
+            {
+                statusClause = " Status IN (";
+                if (Status.HasFlag(EventStatus.Active))
+                {
+                    statusClause += string.Format("{0},", (int)EventStatus.Active);
+                }
+                if (Status.HasFlag(EventStatus.Closed))
+                {
+                    statusClause += string.Format("{0},", (int)EventStatus.Closed);
+                }
+                if (Status.HasFlag(EventStatus.Archived))
+                {
+                    statusClause += string.Format("{0},", (int)EventStatus.Archived);
+                }
+                if (statusClause.Substring(statusClause.Length - 1, 1) == ",")
+                    statusClause = statusClause.Substring(0, statusClause.Length - 1);
+                statusClause += ")";
+            }
+            var cmd = new SqlCommand(string.Format("SELECT Code, Description, Status, LogoURL FROM Events WHERE {0} ORDER BY Status, Code",statusClause));
+            
             cmd.Connection = _conn;
             if (_conn.State == System.Data.ConnectionState.Closed)
                 _conn.Open();
@@ -48,7 +69,12 @@ namespace EventSource.SQL
                 res = cmd.ExecuteReader();
                 while (res.Read())
                 {
-                    retVal.Add(new EventInfo() { Code = res.GetString(0), Description = res.GetString(1), Status = (EventStatus)Enum.Parse(typeof(EventStatus), res.GetInt32(2).ToString()), LogoURL = res.GetString(3) });
+                    retVal.Add(new EventInfo() { Code = res.GetString(0), Description = res.GetString(1), 
+                        Status = (EventStatus)Enum.Parse(typeof(EventStatus), res.GetInt32(2).ToString()), 
+                        LogoURL = res.GetString(3), 
+                        StatusString = Enum.Parse(typeof(EventStatus), res.GetInt32(2).ToString()).ToString(),
+                        IsOpen = (EventStatus.Active == (EventStatus)Enum.Parse(typeof(EventStatus), res.GetInt32(2).ToString()))
+                    });
                 }
                 return retVal;
             }
