@@ -6,6 +6,15 @@
 <h1>@Model.Event.Description Decorated Doors.</h1>
 
 <script id="doors-template" type="text/x-handlebars-template">
+    <h1>Decoarted Doors of {{Event.Description}}</h1>
+    <p>Here is the listing of the currenly decorated doors for {{Event.Description}}.</p>
+    {{#if Event.IsOpen }}
+    <p>Please vote for your favorites and if you see the door that you decorated then please claim it.</p>
+    {{/if}}
+    {{#unless Event.IsOpen }}
+    <p>This event is currently closed so you cannot vote on or claim doors. Please feel free to take a look around.</p>
+    {{/unless}}
+    <p>See our <a href="/Events">events</a> page for a full listing of the events we are hosting.</p>
     <table>
         {{#each Pictures}}
         <tr>
