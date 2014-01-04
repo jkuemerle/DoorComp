@@ -39,6 +39,7 @@ namespace DoorComp.Front
         public DoorInfo DoorDetails { get; set; }
 
         public ClaimInfo ClaimDetails { get; set; }
+
     }
 
     [ClientCanSwapTemplates]
@@ -63,6 +64,25 @@ namespace DoorComp.Front
                 var pic = ((IPictureSource)HttpContext.Current.Application["PhotoSource"]).GetPicture(request.DoorID);
                 var claim = ((IClaimSource)HttpContext.Current.Application["ClaimSource"]).GetClaim(request.DoorID);
                 var door = ((IDoorSource)HttpContext.Current.Application["DoorSource"]).GetDoor(request.DoorID);
+                if(null != door)
+                {
+                    string evkey = string.Format("EventID:{0}", door.EventID);
+                    if (cache.Contains(evkey))
+                        door.Event = (EventInfo) cache.Get(evkey);
+                    else
+                    {
+                        var ev = ((IEventSource)HttpContext.Current.Application["EventSource"]).GetEventByID(door.EventID.ToString());
+                        door.Event = ev;
+                        lock(cacheLock)
+                        {
+                            if(!cache.Contains(evkey))
+                            {
+                                var evpolicy = new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(480) };
+                                cache.Add(evkey, ev, evpolicy);
+                            }
+                        }
+                    }
+                }
                 if (null == pic)
                 {
                     Log.Error("Error", "Get Door", "Door {0} was requested and not found.", request.DoorID);

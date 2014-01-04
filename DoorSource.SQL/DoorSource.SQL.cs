@@ -43,7 +43,7 @@ namespace DoorSource.SQL
                 InitConnection();
             var ret = new DoorInfo();
             var cs = ConfigurationManager.ConnectionStrings["DoorSource"].ConnectionString;
-            using(var cmd = new SqlCommand("SELECT TOP 1 DoorID, Location, Description FROM Doors WHERE DoorID = @DoorID")) {
+            using(var cmd = new SqlCommand("SELECT TOP 1 DoorID, Location, Description, EventID FROM Doors WHERE DoorID = @DoorID")) {
                 if(_conn.State != System.Data.ConnectionState.Open)
                     _conn.Open();
                 cmd.Connection = _conn;
@@ -57,6 +57,7 @@ namespace DoorSource.SQL
                         ret.DoorID = DoorID;
                         ret.Location = res.GetString(1);
                         ret.Description = res.GetString(2);
+                        ret.EventID = res.GetInt64(3);
                     }
                     return ret;
                 }

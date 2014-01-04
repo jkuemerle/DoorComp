@@ -13,8 +13,10 @@
                 <p><a href="/Door/{{ID}}"><img src="{{MediumURL}}" alt="{{ID}}" /></a></p>
                 <p style="display:block; margin-left:auto; margin-right:auto">
                     <button value="Details" onclick="goTo('{{ID}}');">Details</button>&nbsp;&nbsp;&nbsp;
+                    {{#if ../Event.IsOpen }}
                     <button value="Vote" onclick="vote('{{ID}}');">Vote</button>&nbsp;&nbsp;&nbsp;
                     <button value="Claim" onclick="showClaim('{{ID}}');">Claim</button>
+                    {{/if}}
                 </p>
             </td>
         </tr>

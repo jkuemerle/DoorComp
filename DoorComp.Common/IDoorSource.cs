@@ -11,6 +11,9 @@ namespace DoorComp.Common
         public string DoorID { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
+
+        public long EventID { get; set; }
+        public EventInfo Event { get; set; }
     }
     public interface IDoorSource
     {

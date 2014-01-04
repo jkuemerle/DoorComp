@@ -29,5 +29,13 @@ namespace EventSource.Mock
             else
                 return null;
         }
+
+        public EventInfo GetEventByID(string ID)
+        {
+            if ("1" == ID.Trim().ToLowerInvariant())
+                return cm;
+            else 
+                return null;
+        }
     }
 }

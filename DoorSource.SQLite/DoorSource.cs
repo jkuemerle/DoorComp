@@ -27,7 +27,7 @@ namespace DoorSource.SQLite
             var conn = new SQLiteConnection(cs);
             conn.Open();
             var cmd = new SQLiteCommand(conn);
-            cmd.CommandText = "SELECT DoorID, Location, Description FROM Doors WHERE DoorID = @DoorID LIMIT 1";
+            cmd.CommandText = "SELECT DoorID, Location, Description, EventID FROM Doors WHERE DoorID = @DoorID LIMIT 1";
             cmd.Parameters.Add(new SQLiteParameter("@DoorID", DoorID));
             SQLiteDataReader res = null;
             try
@@ -38,6 +38,7 @@ namespace DoorSource.SQLite
                     ret.DoorID = DoorID;
                     ret.Location = res.GetString(1);
                     ret.Description = res.GetString(2);
+                    ret.EventID = res.GetInt64(3);
                 }
                 return ret;
             }

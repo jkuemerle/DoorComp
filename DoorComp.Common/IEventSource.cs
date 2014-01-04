@@ -26,8 +26,7 @@ namespace DoorComp.Common
 
         public string StatusString { get; set; }
 
-        public bool IsOpen { get; set;
-        }
+        public bool IsOpen { get; set; }
         public string LogoURL { get; set; }
     }
     public interface IEventSource
@@ -35,6 +34,8 @@ namespace DoorComp.Common
         IList<EventInfo> ListEvents(EventStatus Status);
 
         EventInfo GetEvent(string EventCode);
+
+        EventInfo GetEventByID(string ID);
     }
 
 }

@@ -10,8 +10,10 @@
             <td width="50%" rowspan="2"><img src="{{Picture.FullSizeURL}}" style="vertical-align: middle;"></td>
             <td width="20%" rowspan="2">
                 <div style="vertical-align:middle">
+                    {{#if DoorDetails.Event.IsOpen }}
                     <p><button value="Vote" onclick="vote('{{DoorID}}');">Vote</button></p>
                     <p><button value="Claim" onclick="showClaim('{{DoorID}}');">Claim</button></p>
+                    {{/if}}
                     {{#if ClaimDetails.Name}}
                     <p>Claimed by: {{ClaimDetails.Name}}</p>
                     {{/if}}

@@ -63,16 +63,36 @@ namespace EventSource.SQLite
             }
         }
 
+        public EventInfo GetEventByID(string ID)
+        {
+            return GetEventDetails(ID, null);
+        }
         public EventInfo GetEvent(string EventCode)
+        {
+            return GetEventDetails(null, EventCode);
+        }
+
+        private EventInfo GetEventDetails(string ID, string EventCode)
         {
             EventInfo ret = new EventInfo();
             if (null == _conn)
                 InitConnection();
-            var cmd = new SQLiteCommand("SELECT Code, Description, Status, LogoURL FROM Events WHERE Code = @Code LIMIT 1");
+            SQLiteCommand cmd = new SQLiteCommand();
+            string commandBase = "SELECT Code, Description, Status, LogoURL FROM Events WHERE ";
+            if (!string.IsNullOrEmpty(ID))
+            {
+                commandBase = string.Format("{0} ID = @ID LIMIT 1", commandBase);
+                cmd.Parameters.Add(new SQLiteParameter("@ID", ID));
+            }
+            else
+            {
+                commandBase = string.Format("{0} Code = @Code LIMIT 1", commandBase);
+                cmd.Parameters.Add(new SQLiteParameter("@Code", EventCode));
+            }
+            cmd.CommandText = commandBase;
             cmd.Connection = _conn;
             if (_conn.State == System.Data.ConnectionState.Closed)
                 _conn.Open();
-            cmd.Parameters.Add(new SQLiteParameter("@Code", EventCode));
             SQLiteDataReader res = null;
             try
             {
@@ -86,7 +106,7 @@ namespace EventSource.SQLite
                 }
                 return ret;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -96,5 +116,6 @@ namespace EventSource.SQLite
                     res.Close();
             }
         }
+
     }
 }
