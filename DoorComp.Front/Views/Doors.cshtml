@@ -3,10 +3,9 @@
 @{
     ViewBag.Title = string.Format("{0} Door Competition - Doors",Model.Event.Code);
 }
-<h1>@Model.Event.Description Decorated Doors.</h1>
+<h1>Decoarted Doors of @Model.Event.Description</h1>
 
 <script id="doors-template" type="text/x-handlebars-template">
-    <h1>Decoarted Doors of {{Event.Description}}</h1>
     <p>Here is the listing of the currenly decorated doors for {{Event.Description}}.</p>
     {{#if Event.IsOpen }}
     <p>Please vote for your favorites and if you see the door that you decorated then please claim it.</p>

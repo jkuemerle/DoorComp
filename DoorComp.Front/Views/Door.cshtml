@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = string.Format("Door Competition - Door {0}",Model.DoorID);
 }
+<h2>Door: @Model.DoorID</h2>
+
 <script id="door-template" type="text/x-handlebars-template">
-    <h1>Door: {{DoorID}}</h1>
     {{#if DoorDetails.Event.IsOpen }}
     <p>If you like this door then please vote for it. If this door is one you decorated then please claim it.</p>
     {{/if}}
