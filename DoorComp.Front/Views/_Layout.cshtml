@@ -78,7 +78,7 @@
                 .done(function (data) { notify("Your vote has been recorded.<br/>Click to dismiss."); })
                 .fail(function (data) { notify("There was an error recording your vote.<br/>Click to dismiss."); });
         }
-
+        
         function showClaim(doorID) {
             $("#claim-door-id").val(doorID);
             $("#claim-form").dialog("open");
@@ -132,8 +132,13 @@
     </script>
     @RenderBody()
 
-    <h6 style="font-size:12px; color: #999; position: fixed; bottom: -25px; right: 10px; text-shadow: 0px 2px 3px #fff;">
-        @Env.ServerUserAgent
-    </h6>
+<div id="footer">
+    <hr/>
+    <p><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Door Competition Photographs</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.kuemerle.com" property="cc:attributionName" rel="cc:attributionURL">Joe Kuemerle</a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></p>
+    <p>All other work copyright @DateTime.Now.Year, Joe Kuemerle.</p>
+    <p>This application is open source and is built using <a href="https://github.com/ServiceStackV3/ServiceStackV3" target="_blank">ServiceStack.Net v3</a>. What is really cool is that this web application is also a fully functional API and the format of the results you see (html, json, xml, etc) is under the control of the client so by asking for an accept-type of application/json you will get a JSON rendering of the data for consumption in your own application.</p>
+    <p>To view or fork this code check out the <a href="https://github.com/jkuemerle/DoorComp" target="_blank">Github repository</a>.</p>
+    <p>I hope to see you around at various community events. If you see a guy in a kilt taking pictures of hotel room doors it is probably <a href="https://twitter.com/jkuemerle" target="_blank">me</a>. Stop by and say hi!</p>
+</div>
 </body>
 </html>
