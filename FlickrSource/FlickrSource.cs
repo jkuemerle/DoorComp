@@ -15,8 +15,8 @@ namespace FlickrSource
     {
         public static string RemoveProtocol(this string val)
         {
-            var ret = val.Replace("http://", "//");
-            ret = ret.Replace("https://", "//");
+            var ret = val.Replace("http://", "https://");
+            //ret = ret.Replace("https://", "//");
             return ret;
         }
 
