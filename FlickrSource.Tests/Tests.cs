@@ -28,7 +28,7 @@ namespace FlickrSource.Tests
         [Test]
         public void TestListDoorComp()
         {
-            var pics = src.ListPictures("doorcomp,codemash");
+            var pics = src.ListPictures("doorcomp,codemash","");
             Assert.Greater(pics.Count, 0);
         }
 

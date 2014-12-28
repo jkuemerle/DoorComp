@@ -22,7 +22,7 @@ namespace PictureSource.Mock
             _pics.Add("2",new PictureInfo() { ID = "2", Title = "Bar", FullSizeURL = "http://evilco.com/pic.jpg", ThumbnailURL = "http://evilco.com/pic.jpg", URL = "http://evilco.com" });
             _pics.Add("3",new PictureInfo() { ID = "3", Title = "Baz", FullSizeURL = "http://evilco.com/pic.jpg", ThumbnailURL = "http://evilco.com/pic.jpg", URL = "http://evilco.com" });
         }
-        public IList<PictureInfo> ListPictures(string SearchString)
+        public IList<PictureInfo> ListPictures(string SearchString, string EventTag)
         {
             return (from a in _pics select a.Value).ToList();
         }

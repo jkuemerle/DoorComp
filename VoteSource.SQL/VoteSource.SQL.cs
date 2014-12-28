@@ -64,6 +64,22 @@ namespace VoteSource.SQL
             return true;
         }
 
+        public string GetVoteCount(string DoorID)
+        {
+            if (null == _conn)
+                InitConnection();
+            using (var cmd = new SqlCommand("SELECT COUNT(*) As VoteCount FROM Votes WHERE DoorID = @DoorID"))
+            {
+                cmd.Parameters.Add(new SqlParameter("@DoorID", DoorID));
+                if (_conn.State != System.Data.ConnectionState.Open)
+                    _conn.Open();
+                cmd.Connection = _conn;
+                var result = cmd.ExecuteScalar().ToString();
+                return result;
+            }
+
+        }
+
         private void AddVote(VoteInfo Vote)
         {
             var id = CalculateVoterID(Vote);

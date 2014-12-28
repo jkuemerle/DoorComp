@@ -11,22 +11,10 @@ using ServiceStack.Common.Web;
 using Gibraltar.Agent;
 
 using DoorComp.Common;
-
+using DoorComp.DTO;
 
 namespace DoorComp.Front
 {
-
-    [Route("/Events")]
-    [Route("/Events/{Status}")]
-    public class Event
-    {
-        public string Status { get; set; }
-    }
-
-    public class EventsResponse
-    {
-        public List<EventInfo> Events { get; set; }
-    }
 
     [ClientCanSwapTemplates]
     [DefaultView("Events")]

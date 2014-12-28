@@ -1,4 +1,4 @@
-﻿@inherits ViewPage<EventsResponse>
+﻿@inherits ServiceStack.Razor.ViewPage<EventsResponse>
 
 @{
     ViewBag.Title = "Door Competition - Events";
@@ -23,7 +23,7 @@
             <td>
                 <div style="vertical-align: middle;">
                     <p><a href="/Doors/{{Code}}"><b>Doors</b></a></p>
-                    {{#unless IsOpen}}<p><a href="/Results/{{Code}}"><b>Results</b></a></p>{{/unless}}
+                    <!-- {{#unless IsOpen}}<p><a href="/Results/{{Code}}"><b>Results</b></a></p>{{/unless}} -->
                 </div>
             </td>
         </tr>

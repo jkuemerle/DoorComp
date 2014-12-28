@@ -15,6 +15,7 @@ namespace DoorComp.Common
 
         public string Email { get; set; }
     }
+
     public interface IClaimSource
     {
         bool Claim(string DoorID, ClaimInfo Claim);

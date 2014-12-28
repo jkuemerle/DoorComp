@@ -8,26 +8,10 @@ using ServiceStack.ServiceInterface;
 using DoorComp.Common;
 using ServiceStack.Common.Web;
 using Gibraltar.Agent;
+using DoorComp.DTO;
 
 namespace DoorComp.Front
 {
-    [Route("/Claim")]
-    [Route("/Claim/{DoorID}")]
-    [Route("/Claim/{DoorID}/{Name}")]
-    [Route("/Claim/{DoorID}/{Name}/{EmailAddress}")]
-    public class Claim
-    {
-        public string DoorID { get; set; }
-
-        public string Name { get; set; }
-
-        public string EmailAddress { get; set; }
-    }
-
-    public class ClaimResponse
-    {
-        public bool Status {get;set;}
-    }
 
     public class ClaimService : Service
     {

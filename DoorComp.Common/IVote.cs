@@ -40,5 +40,7 @@ namespace DoorComp.Common
     public interface IVote
     {
         bool PostVote(VoteInfo Vote);
+
+        string GetVoteCount(string DoorID);
     }
 }

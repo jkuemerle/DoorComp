@@ -38,7 +38,7 @@ namespace DoorComp.Common
 
     public interface IPictureSource
     {
-        IList<PictureInfo> ListPictures(string SearchString);
+        IList<PictureInfo> ListPictures(string SearchString, string EventTag);
 
         PictureInfo GetPicture(string ID);
 

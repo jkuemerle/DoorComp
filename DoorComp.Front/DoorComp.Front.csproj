@@ -103,6 +103,7 @@
     <Compile Include="Claim.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="DoorAdmin.cs" />
     <Compile Include="Doors.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Global.asax.cs">
@@ -119,6 +120,8 @@
     <Content Include="NotFound.cshtml" />
     <Content Include="Views\Events.cshtml" />
     <Content Include="Views\Door.cshtml" />
+    <Content Include="Views\DoorAdmin.cshtml" />
+    <None Include="Properties\PublishProfiles\doorcomp.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -130,6 +133,10 @@
     <ProjectReference Include="..\DoorComp.Common\DoorComp.Common.csproj">
       <Project>{d5f324f2-d67b-4f27-97d8-eeb0e74694c1}</Project>
       <Name>DoorComp.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DoorComp.DTO\DoorComp.DTO.csproj">
+      <Project>{e9c0c291-8f39-4c8f-bf4e-21b9f9feb10d}</Project>
+      <Name>DoorComp.DTO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

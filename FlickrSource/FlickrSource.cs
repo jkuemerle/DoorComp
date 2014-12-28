@@ -50,11 +50,11 @@ namespace FlickrSource
             _flickr.InstanceCacheDisabled = true;
         }
 
-        public IList<PictureInfo> ListPictures(string SearchString)
+        public IList<PictureInfo> ListPictures(string SearchString, string EventTag)
         {
             var retVal = new List<PictureInfo>();
-            PhotoSearchOptions options = new PhotoSearchOptions() { Tags = SearchString, TagMode= TagMode.AllTags };
-            retVal = (from a in _flickr.PhotosSearch(options) select new PictureInfo() { ID = a.PhotoId, 
+            PhotoSearchOptions options = new PhotoSearchOptions() { Tags = SearchString, TagMode= TagMode.AllTags, SortOrder = PhotoSearchSortOrder.Relevance, Extras = PhotoSearchExtras.Tags };
+            retVal = (from a in _flickr.PhotosSearch(options) where a.Tags.Contains(EventTag) select new PictureInfo() { ID = a.PhotoId, 
                 FullSizeURL = a.MediumUrl.RemoveProtocol(), ThumbnailURL = a.ThumbnailUrl.RemoveProtocol(), 
                 Title = a.Title, URL = a.WebUrl.RemoveProtocol(), MediumURL = a.MediumUrl.RemoveProtocol() }).ToList();
             return retVal;

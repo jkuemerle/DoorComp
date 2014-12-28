@@ -1,0 +1,63 @@
+﻿@inherits ViewPage<DoorAdminResponse>
+
+@{
+    ViewBag.Title = string.Format("Door Competition - Door {0}",Model.DoorID);
+}
+<h2>Door: @Model.DoorID</h2>
+
+<script id="door-template" type="text/x-handlebars-template">
+    <p>Door administration.</p>    
+    <table>
+        <tr>
+            <td width="30%">{{DoorDetails.Description}}</td>
+            <td width="50%" rowspan="2"><img src="{{Picture.FullSizeURL}}" style="vertical-align: middle;"></td>
+            <td width="20%" rowspan="2">
+                <div style="vertical-align:middle">
+                    {{#if DoorDetails.Event.IsOpen }}
+                    <p><button value="Vote" onclick="vote('{{DoorID}}');">Vote</button></p>
+                    <p><button value="Claim" onclick="showClaim('{{DoorID}}');">Claim</button></p>
+                    {{/if}}
+                    {{#if ClaimDetails.Name}}
+                    <p>Claimed by: {{ClaimDetails.Name}}</p>
+                    {{/if}}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%">{{DoorDetails.Location}}</td>
+        </tr>
+        <tr>
+            <td width="30%">Total Votes: {{Votes}}</td>
+        </tr>
+    </table>
+</script>
+
+<div id="door-content">
+
+</div>
+
+<script>
+    var result = @Html.Raw(@ServiceStack.Text.JsonSerializer.SerializeToString(@Model));
+    renderPage();
+
+    function rerender() {
+        $.ajax({
+            headers: { Accept: "application/json" },
+            type: "GET",
+            url: "/Admin/" + result.DoorID,
+            contentType: "application/json",
+            async: false,
+        })
+            .done(function (data) { result = data; renderPage();})
+            .fail(function (data) { });
+    }
+
+    function renderPage() {
+        var source = $("#door-template").html();
+        var template = Handlebars.compile(source);
+        var html = template(result);
+        $("#door-content").html(html);    
+    }
+</script>
+
+

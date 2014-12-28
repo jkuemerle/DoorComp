@@ -10,38 +10,10 @@ using ServiceStack.Common.Web;
 using Gibraltar.Agent;
 
 using DoorComp.Common;
-
+using DoorComp.DTO;
 
 namespace DoorComp.Front
 {
-    [Route("/Door/{EventCode}/{DoorID}")]
-    [Route("/Door/{DoorID}")]
-    public class Door
-    {
-        public string EventCode { get; set; }
-        public string DoorID { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            var test = (Door) obj;
-            return this.EventCode.Equals(test.EventCode) && this.DoorID.Equals(test.DoorID);
-        }
-    }
-
-    public class DoorResponse
-    {
-        public string DoorID { get; set; }
-        public PictureInfo Picture { get; set; }
-        public string VoteURL { get; set; }
-
-        public string ClaimURL { get; set; }
-
-        public DoorInfo DoorDetails { get; set; }
-
-        public ClaimInfo ClaimDetails { get; set; }
-
-    }
-
     [ClientCanSwapTemplates]
     [DefaultView("Door")]
     public class DoorService : Service
@@ -51,6 +23,10 @@ namespace DoorComp.Front
         private const int cacheSeconds = 240;
         private static object cacheLock = new object();
         
+        public object Options(Door request)
+        {
+            return new object();
+        }
         public object Get(Door request)
         {
             try

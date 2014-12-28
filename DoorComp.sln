@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.Common", "DoorComp.Common\DoorComp.Common.csproj", "{D5F324F2-D67B-4F27-97D8-EEB0E74694C1}"
 EndProject
@@ -58,6 +58,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E99CBC
 	ProjectSection(SolutionItems) = preProject
 		build.proj = build.proj
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorComp.DTO", "DoorComp.DTO\DoorComp.DTO.csproj", "{E9C0C291-8F39-4C8F-BF4E-21B9F9FEB10D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApplication", "ClientApplication\ClientApplication.csproj", "{09F7CD59-0112-4B90-A876-F10E64E51B64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +133,14 @@ Global
 		{1D96E3BE-2084-4806-9503-3A3B2616EC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D96E3BE-2084-4806-9503-3A3B2616EC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D96E3BE-2084-4806-9503-3A3B2616EC1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9C0C291-8F39-4C8F-BF4E-21B9F9FEB10D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C0C291-8F39-4C8F-BF4E-21B9F9FEB10D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C0C291-8F39-4C8F-BF4E-21B9F9FEB10D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C0C291-8F39-4C8F-BF4E-21B9F9FEB10D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F7CD59-0112-4B90-A876-F10E64E51B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F7CD59-0112-4B90-A876-F10E64E51B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F7CD59-0112-4B90-A876-F10E64E51B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F7CD59-0112-4B90-A876-F10E64E51B64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

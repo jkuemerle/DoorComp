@@ -23,5 +23,10 @@ namespace VoteSource.Mock
             _votes.Add(Vote);
             return true;
         }
+
+        public string GetVoteCount(string DoorID)
+        {
+            return _votes.Count(x => x.DoorID == DoorID).ToString();
+        }
     }
 }

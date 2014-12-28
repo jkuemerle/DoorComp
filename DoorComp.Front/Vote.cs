@@ -8,20 +8,10 @@ using ServiceStack.ServiceInterface;
 using ServiceStack.Common.Web;
 using Gibraltar.Agent;
 using DoorComp.Common;
+using DoorComp.DTO;
 
 namespace DoorComp.Front
 {
-    [Route("/Vote")]
-    [Route("/Vote/{DoorID}")]
-    public class Vote
-    {
-        public string DoorID { get; set; }
-    }
-
-    public class VoteResponse
-    {
-        public string Status { get; set; }
-    }
 
     [ClientCanSwapTemplates]
     [DefaultView("Vote")]
